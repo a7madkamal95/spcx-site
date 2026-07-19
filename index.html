@@ -314,7 +314,7 @@ en:{revenue_2025:"Total revenue 2025",starlink_revenue_2025:"Starlink revenue",s
 var VEN={next_earnings:"Aug 6"};
 var TLEN=[{when:"Dec 2025",what:"Insider share sale",note:"valued the company at $800B"},{when:"Feb 2026",what:"The mega-merger",note:"absorbed xAI and X at a combined $1.25T"},{when:"Jun 12, 2026",what:"Largest IPO ever",note:"raised $75B+ at $135 per share"},{when:"Jul 2026",what:"Reality check",note:"stock fell ~30%, back below IPO"}];
 var TKEN=["This is effectively a telecom company — Starlink is the financial engine","Buying the stock means buying three companies at once","The valuation is priced on the future, not the present","The stock moves on news and test flights more than fundamentals"];
-var PXA="https://api.allorigins.win/raw"+String.fromCharCode(63)+"url=",PXB="https://corsproxy.io/"+String.fromCharCode(63)+"url=",PXC="https://api.codetabs.com/v1/proxy"+String.fromCharCode(63)+"quest=";var PXS=[PXA,PXB,PXC];
+var PXA="https://api.allorigins.win/raw?url=",PXB="https://corsproxy.io/?url=",PXC="https://api.codetabs.com/v1/proxy?quest=";var PXS=[PXA,PXB,PXC];
 function pxf(u){var i=0;function nx(){if(i>=PXS.length)return Promise.reject(new Error("px"));var p=PXS[i]+encodeURIComponent(u);i=i+1;return fetch(p).then(function(r){if(!r.ok)throw 0;return r}).catch(nx)}return nx()}
 function px(u){return PXA+encodeURIComponent(u)}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.1});
