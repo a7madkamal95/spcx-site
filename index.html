@@ -101,6 +101,9 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 #news a:hover .arb{color:var(--a2)}
 .arb{transition:color .2s;font-weight:500}
 .osrc{font-family:var(--num);font-size:11px;color:var(--mut);direction:ltr;display:block;text-align:left;margin-top:2px;opacity:.7}
+.nmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:5px}
+.src{font-family:var(--num);font-size:10.5px;letter-spacing:.05em;color:var(--a2);border:1px solid rgba(56,212,255,.4);border-radius:99px;padding:1px 10px;background:rgba(56,212,255,.08);direction:ltr}
+.ndate{font-size:11px;color:var(--mut)}
 .sc{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 @media(max-width:640px){.sc{grid-template-columns:1fr}}
 .pan{padding:18px;font-size:13.5px}
@@ -300,18 +303,40 @@ return fetch("https://translate.googleapis.com/translate_a/single?client=gtx&sl=
 .catch(function(){return fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(t)+"&langpair=en|ar")
 .then(function(r){return r.json()}).then(function(j){return (j.responseData&&j.responseData.translatedText)||t})
 .catch(function(){return t})})}
+var SRC={"finance.yahoo.com":"Yahoo Finance","yahoo.com":"Yahoo","reuters.com":"Reuters","bloomberg.com":"Bloomberg","cnbc.com":"CNBC","wsj.com":"WSJ","ft.com":"Financial Times","barrons.com":"Barron's","marketwatch.com":"MarketWatch","investors.com":"IBD","fool.com":"Motley Fool","seekingalpha.com":"Seeking Alpha","benzinga.com":"Benzinga","businessinsider.com":"Business Insider","forbes.com":"Forbes","techcrunch.com":"TechCrunch","theverge.com":"The Verge","spacenews.com":"SpaceNews","apnews.com":"AP","nytimes.com":"NY Times","cnn.com":"CNN","bbc.com":"BBC","investing.com":"Investing.com","zacks.com":"Zacks","tipranks.com":"TipRanks"};
+function srcName(item,link){
+var s=item.querySelector("source");
+if(s&&s.textContent.trim())return s.textContent.trim();
+try{var h=new URL(link).hostname.replace(/^www\./,"");
+if(SRC[h])return SRC[h];
+var parts=h.split(".");var base=parts.slice(-2).join(".");
+if(SRC[base])return SRC[base];
+return base.split(".")[0].charAt(0).toUpperCase()+base.split(".")[0].slice(1);
+}catch(e){return "المصدر"}}
+function ago(ds){
+if(!ds)return "";
+var t=new Date(ds).getTime();if(isNaN(t))return "";
+var m=Math.round((Date.now()-t)/60000);
+if(m<1)return "الحين";
+if(m<60)return "قبل "+m+" دقيقة";
+var h=Math.round(m/60);
+if(h<24)return "قبل "+h+" ساعة";
+var dd=Math.round(h/24);
+if(dd===1)return "أمس";
+return "قبل "+dd+" يوم";}
 function liveNews(){
 fetch(px("https://feeds.finance.yahoo.com/rss/2.0/headline?s=SPCX&region=US&lang=en-US")).then(function(r){return r.text()}).then(function(t){
 var doc=new DOMParser().parseFromString(t,"text/xml");
 var items=Array.prototype.slice.call(doc.querySelectorAll("item"),0,6);
 if(!items.length)return;
 Promise.all(items.map(function(i){
-var ti=i.querySelector("title"),li=i.querySelector("link");var en=ti?ti.textContent:"";
-return tr(en).then(function(a){return {ar:a,en:en,link:li?li.textContent:"#"}})
+var ti=i.querySelector("title"),li=i.querySelector("link"),pd=i.querySelector("pubDate");
+var en=ti?ti.textContent:"";var link=li?li.textContent:"#";
+return tr(en).then(function(a){return {ar:a,en:en,link:link,src:srcName(i,link),when:ago(pd?pd.textContent:"")}})
 })).then(function(list){
-document.getElementById("nsrc").textContent="مترجمة تلقائيًا";
+document.getElementById("nsrc").textContent="مترجمة · مع المصدر";
 document.getElementById("news").innerHTML=list.map(function(n){
-return '<li><a href="'+n.link+'" target="_blank"><span class="arb">📌 '+n.ar+'</span><span class="osrc">'+n.en+'</span></a></li>'}).join("")})
+return '<li><a href="'+n.link+'" target="_blank"><span class="arb">📌 '+n.ar+'</span><span class="osrc">'+n.en+'</span><div class="nmeta"><span class="src">'+n.src+'</span><span class="ndate">'+n.when+'</span></div></a></li>'}).join("")})
 }).catch(function(){})}
 function sp(p,live){var e=document.getElementById("px"),b=p<IPO;
 e.textContent="$"+(+p).toFixed(2)+(b?" ▼":" ▲");e.className=(b?"neg":"pos");
