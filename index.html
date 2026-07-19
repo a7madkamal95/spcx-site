@@ -3,166 +3,248 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>خريطة إمبراطورية SpaceX</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<title>SPCX — خريطة الإمبراطورية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zain:wght@400;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#070b16;--panel:#101a30;--line:rgba(140,170,255,.15);--ink:#e9edf7;--dim:#9aa7c4;--g:#4be0a0;--r:#ff6b5e;--b:#6ea8ff;--y:#ffd166}
+:root{
+--void:#050810;--neb1:#0d1224;--neb2:#131a33;--line:rgba(140,160,255,.13);
+--ink:#eef1fb;--mut:#8b94b8;
+--a1:#7c5cff;--a2:#34d2ff;--mint:#3ce8a6;--coral:#ff7059;--gold:#ffce5c;
+--disp:'Zain',sans-serif;--body:'IBM Plex Sans Arabic',Tahoma,sans-serif;--num:'Space Grotesk',monospace;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:'Cairo',Tahoma,sans-serif;line-height:1.8}
-.wrap{max-width:860px;margin:0 auto;padding:20px 16px 70px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:16px}
-.hero{text-align:center;padding-top:30px}
-.rocket{font-size:46px;display:inline-block;animation:hv 3s ease-in-out infinite}
-@keyframes hv{0%,100%{transform:translateY(0) rotate(-45deg)}50%{transform:translateY(-9px) rotate(-45deg)}}
-h1{font-size:clamp(26px,6vw,40px);font-weight:900}
-.dim{color:var(--dim);font-size:14px}
-.tick{display:inline-flex;gap:12px;flex-wrap:wrap;justify-content:center;background:#0c1426;border:1px solid var(--line);border-radius:999px;padding:9px 20px;font-weight:800;margin-top:14px}
-.en{direction:ltr;display:inline-block}
-.neg{color:var(--r)}.pos{color:var(--g)}.gold{color:var(--y)}
-h2{font-size:19px;margin-bottom:8px}
-.tl{display:flex;overflow-x:auto;gap:0}
-.ts{min-width:190px;flex:1;padding:10px 14px;border-right:2px solid var(--line)}
-.ts:first-child{border-right:none}
-.ts .w{font-size:12px;color:var(--y);font-weight:700}
-.ts .t{font-size:14px;font-weight:700}
-.ts .n{font-size:12.5px;color:var(--dim)}
-svg{width:100%;height:auto;display:block}
-@keyframes dsh{to{stroke-dashoffset:-60}}
-.fg{stroke:var(--g);stroke-width:3;stroke-dasharray:9 8;fill:none;animation:dsh 1.1s linear infinite}
-.fr{stroke:var(--r);stroke-width:3;stroke-dasharray:9 8;fill:none;animation:dsh 1.1s linear infinite}
-@keyframes gl{0%,100%{filter:drop-shadow(0 0 3px rgba(75,224,160,.5))}50%{filter:drop-shadow(0 0 13px rgba(75,224,160,.9))}}
-.glow{animation:gl 2.2s infinite}
-.seg{cursor:pointer}
-.seg .h{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.bdg{font-size:12px;font-weight:700;border-radius:999px;padding:2px 11px;border:1px solid}
-.bg1{color:var(--b);border-color:var(--b)}.bg2{color:var(--g);border-color:var(--g)}.bg3{color:var(--r);border-color:var(--r)}
-.ar{margin-inline-start:auto;transition:.3s;color:var(--dim)}
-.seg.open .ar{transform:rotate(180deg)}
-.dt{max-height:0;overflow:hidden;transition:max-height .5s}
-.seg.open .dt{max-height:800px}
-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13.5px}
-td{padding:8px 5px;border-top:1px solid var(--line);vertical-align:top}
-td:first-child{white-space:nowrap;font-weight:700;color:var(--b);direction:ltr;text-align:right}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:11px;margin-top:12px}
-.st{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center}
-.st b{display:block;font-size:22px;font-weight:900;color:var(--b);direction:ltr}
-.st span{font-size:12px;color:var(--dim)}
-#news li{list-style:none;padding:8px 0;border-top:1px dashed var(--line);font-size:14px}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--ink);font-family:var(--body);line-height:1.9;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;
+background:radial-gradient(900px 500px at 85% -10%,rgba(124,92,255,.16),transparent 60%),
+radial-gradient(700px 420px at 8% 12%,rgba(52,210,255,.10),transparent 55%),
+radial-gradient(600px 500px at 50% 110%,rgba(60,232,166,.06),transparent 60%)}
+.wrap{max-width:940px;margin:0 auto;padding:0 20px 90px}
+::selection{background:rgba(124,92,255,.4)}
+/* شريط السعر الملاصق */
+.bar{position:sticky;top:10px;z-index:50;display:flex;gap:16px;align-items:center;flex-wrap:wrap;
+background:rgba(13,18,36,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+border:1px solid var(--line);border-radius:16px;padding:10px 18px;margin-top:14px;
+box-shadow:0 10px 40px rgba(0,0,0,.45)}
+.bar .sym{font-family:var(--num);font-weight:700;letter-spacing:.06em;font-size:14px;color:var(--mut)}
+.bar .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint);animation:pl 1.6s infinite}
+@keyframes pl{50%{opacity:.3}}
+#px{font-family:var(--num);font-weight:700;font-size:22px;direction:ltr}
+.neg{color:var(--coral)}.pos{color:var(--mint)}
+#pm,#vi{font-size:12px;color:var(--mut)}
+.en{direction:ltr;display:inline-block;font-family:var(--num)}
+/* الهيرو */
+.hero{padding:64px 0 20px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+@media(max-width:760px){.hero{grid-template-columns:1fr;text-align:center}}
+.kick{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--a2);margin-bottom:10px}
+h1{font-family:var(--disp);font-weight:900;font-size:clamp(38px,7vw,64px);line-height:1.15}
+h1 .grad{background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mut);font-size:16px;max-width:46ch;margin-top:12px}
+@media(max-width:760px){.lead{margin-inline:auto}}
+/* النظام المداري — العنصر المميز */
+.orbit{position:relative;aspect-ratio:1;max-width:380px;margin-inline:auto;width:100%}
+.orbit svg{width:100%;height:100%;overflow:visible}
+.ring{fill:none;stroke:rgba(140,160,255,.18);stroke-width:1}
+.ring2{stroke-dasharray:3 7}
+.spin{transform-origin:210px 210px;animation:orb 26s linear infinite}
+.spin2{transform-origin:210px 210px;animation:orb 40s linear infinite reverse}
+@keyframes orb{to{transform:rotate(360deg)}}
+.core{filter:drop-shadow(0 0 26px rgba(60,232,166,.55))}
+.sat t, .orbit text{font-family:var(--body)}
+/* الأقسام */
+section{margin-top:56px}
+.eyeb{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.eyeb .ln{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.eyeb b{font-family:var(--disp);font-weight:800;font-size:24px}
+.eyeb span{font-size:12px;letter-spacing:.18em;color:var(--a2);font-weight:700}
+.card{background:linear-gradient(160deg,var(--neb2),var(--neb1));border:1px solid var(--line);
+border-radius:20px;padding:24px;position:relative}
+.card::before{content:"";position:absolute;inset:0;border-radius:20px;padding:1px;
+background:linear-gradient(140deg,rgba(124,92,255,.35),transparent 30%,transparent 70%,rgba(52,210,255,.25));
+-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+/* الأحداث */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:760px){.tl{grid-template-columns:repeat(2,1fr)}}
+.ts{padding:14px;border-radius:14px;background:rgba(255,255,255,.02);border:1px solid var(--line)}
+.ts .w{font-family:var(--num);font-size:11px;color:var(--gold);letter-spacing:.08em}
+.ts .t{font-family:var(--disp);font-weight:800;font-size:16px;margin-top:2px}
+.ts .n{font-size:12.5px;color:var(--mut);line-height:1.7}
+/* الشرايين */
+.veins{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.veins{grid-template-columns:1fr}}
+.vein{border-radius:16px;padding:18px;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer;transition:transform .25s,border-color .25s}
+.vein:hover{transform:translateY(-4px)}
+.v1:hover{border-color:rgba(52,210,255,.5)}.v2:hover{border-color:rgba(60,232,166,.5)}.v3:hover{border-color:rgba(255,112,89,.5)}
+.vein .ic{font-size:26px}
+.vein h3{font-family:var(--disp);font-weight:800;font-size:20px;margin-top:6px}
+.tag{display:inline-block;font-family:var(--num);font-size:11px;letter-spacing:.08em;border-radius:99px;padding:2px 10px;border:1px solid;margin-top:4px}
+.t1{color:var(--a2);border-color:rgba(52,210,255,.4)}.t2{color:var(--mint);border-color:rgba(60,232,166,.4)}.t3{color:var(--coral);border-color:rgba(255,112,89,.4)}
+.vein p{font-size:13px;color:var(--mut);margin-top:8px}
+.vein table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;display:none}
+.vein.open table{display:table}
+.vein td{padding:7px 4px;border-top:1px solid var(--line);vertical-align:top;line-height:1.7}
+.vein td:first-child{font-family:var(--num);font-size:12px;white-space:nowrap;color:var(--ink);direction:ltr;text-align:right;font-weight:700}
+.more{font-size:11.5px;color:var(--a2);margin-top:8px}
+/* الأرقام */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+.st{border-radius:16px;padding:18px 14px;background:rgba(255,255,255,.02);border:1px solid var(--line);text-align:center;transition:transform .25s}
+.st:hover{transform:translateY(-3px)}
+.st b{display:block;font-family:var(--num);font-size:26px;font-weight:700;direction:ltr;
+background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:text;background-clip:text;color:transparent}
+.st span{font-size:12px;color:var(--mut)}
+/* الأخبار */
+#news li{list-style:none;padding:13px 0;border-top:1px solid var(--line);font-size:14.5px}
 #news li:first-child{border-top:none}
-#news a{color:inherit;text-decoration:none}
-#news a:hover{color:var(--b)}
-.osrc{font-size:11px;color:var(--dim);direction:ltr;display:block;text-align:left}
-.sc{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
-@media(max-width:560px){.sc{grid-template-columns:1fr}}
-.pan{border-radius:14px;padding:14px;border:1px solid;font-size:13.5px}
-.pg{border-color:rgba(75,224,160,.4)}.pb{border-color:rgba(255,107,94,.4)}
-.pg h4{color:var(--g)}.pb h4{color:var(--r)}
-.pan li{list-style:none;padding:4px 0;border-top:1px dashed var(--line)}
+#news a{color:inherit;text-decoration:none;display:block}
+#news a:hover .arb{color:var(--a2)}
+.arb{transition:color .2s;font-weight:500}
+.osrc{font-family:var(--num);font-size:11px;color:var(--mut);direction:ltr;display:block;text-align:left;margin-top:2px;opacity:.75}
+/* الميزان */
+.sc{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.sc{grid-template-columns:1fr}}
+.pan{border-radius:16px;padding:18px;border:1px solid;font-size:13.5px;background:rgba(255,255,255,.02)}
+.pg{border-color:rgba(60,232,166,.35)}.pb{border-color:rgba(255,112,89,.35)}
+.pan h4{font-family:var(--disp);font-weight:800;font-size:18px;margin-bottom:8px}
+.pg h4{color:var(--mint)}.pb h4{color:var(--coral)}
+.pan li{list-style:none;padding:5px 0;border-top:1px dashed var(--line)}
 .pan li:first-of-type{border-top:none}
-.tk{border-inline-start:4px solid var(--y);padding:9px 13px;margin-top:10px;background:rgba(255,209,102,.05);border-radius:0 10px 10px 0;font-size:14px}
-.dsc{text-align:center;color:var(--dim);font-size:12px;margin-top:22px}
+/* الخلاصة */
+.tk{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line);font-size:15px}
+.tk:first-child{border-top:none}
+.tk i{font-family:var(--num);font-style:normal;font-weight:700;color:var(--gold);font-size:13px;border:1px solid rgba(255,206,92,.4);border-radius:8px;padding:1px 8px;margin-top:4px}
+.dsc{text-align:center;color:var(--mut);font-size:12px;margin-top:34px}
+/* ظهور */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.rv.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 </style>
 </head>
 <body>
 <div class="wrap">
+
+<div class="bar rv">
+<span class="dot"></span><span class="sym">NASDAQ · SPCX</span>
+<span id="px">…</span><span id="vi"></span><span id="mc" class="en" style="color:var(--gold);font-weight:700"></span>
+<span id="pm" style="margin-inline-start:auto"></span>
+</div>
+
 <div class="hero">
-<span class="rocket">🚀</span>
-<h1>خريطة إمبراطورية <span class="en">SpaceX</span></h1>
-<p class="dim">ثلاث شركات في سهم واحد: صواريخ، إنترنت فضائي، وذكاء اصطناعي — منو يربح ومنو يحرق؟</p>
-<div class="tick"><span class="en">NASDAQ: SPCX</span><span id="px" class="en">…</span><span id="vi" class="dim"></span><span id="mc" class="en gold"></span></div>
-<div class="dim" style="font-size:11.5px;margin-top:7px"><span id="pm">⏳ جاري جلب السعر الحي…</span></div>
+<div class="rv">
+<div class="kick">تحليل استثماري حي · يتحدث تلقائيًا</div>
+<h1>إمبراطورية<br><span class="grad">سبيس إكس</span><br>في خريطة واحدة</h1>
+<p class="lead">ثلاث شركات مدموجة بسهم واحد: صواريخ تحتكر الفضاء، إنترنت يموّل الجميع، وذكاء اصطناعي يحرق المليارات. هنا تشوف منو يربح ومنو يصرف — بأرقام حية.</p>
 </div>
-
-<div class="card"><h2>الأحداث المفصلية</h2><div class="tl" id="tl"></div></div>
-
-<div class="card"><h2>💸 محرّك الفلوس: منو يموّل منو؟</h2>
-<svg viewBox="0 0 420 330" style="direction:ltr">
-<defs><marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0L10,5L0,10z" fill="#4be0a0"/></marker><marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0L10,5L0,10z" fill="#ff6b5e"/></marker></defs>
-<rect x="140" y="12" width="140" height="56" rx="13" fill="rgba(110,168,255,.1)" stroke="#6ea8ff"/>
-<text x="210" y="36" text-anchor="middle" fill="#e9edf7" font-size="14" font-weight="bold">🚀 Falcon 9</text>
-<text x="210" y="55" text-anchor="middle" fill="#9aa7c4" font-size="11.5">إطلاق شبه مجاني للأقمار</text>
-<g class="glow"><rect x="118" y="126" width="184" height="64" rx="13" fill="rgba(75,224,160,.1)" stroke="#4be0a0" stroke-width="2"/>
-<text x="210" y="152" text-anchor="middle" fill="#e9edf7" font-size="15" font-weight="bold">📡 Starlink</text>
-<text x="210" y="173" text-anchor="middle" fill="#4be0a0" font-size="12" font-weight="bold">مركز الربح الوحيد +$4.4B</text></g>
-<rect x="14" y="250" width="180" height="60" rx="13" fill="rgba(255,107,94,.08)" stroke="#ff6b5e"/>
-<text x="104" y="274" text-anchor="middle" fill="#e9edf7" font-size="13.5" font-weight="bold">🛸 Starship</text>
-<text x="104" y="294" text-anchor="middle" fill="#9aa7c4" font-size="11.5">قيد الاختبار — يستهلك رأسمال</text>
-<rect x="226" y="250" width="180" height="60" rx="13" fill="rgba(255,107,94,.08)" stroke="#ff6b5e"/>
-<text x="316" y="274" text-anchor="middle" fill="#e9edf7" font-size="13.5" font-weight="bold">🤖 xAI + X + Grok</text>
-<text x="316" y="294" text-anchor="middle" fill="#ff6b5e" font-size="11.5" font-weight="bold">يحرق −$14B سنويًا</text>
-<path class="fg" d="M210,68 L210,122" marker-end="url(#ag)"/>
-<path class="fr" d="M162,190 C130,218 115,228 108,246" marker-end="url(#arw)"/>
-<path class="fr" d="M258,190 C290,218 305,228 312,246" marker-end="url(#arw)"/>
-<text x="222" y="100" fill="#9aa7c4" font-size="11">يخفض التكلفة 50–70%</text>
-<text x="118" y="222" text-anchor="middle" fill="#ff6b5e" font-size="11.5" font-weight="bold">تمويل</text>
-<text x="302" y="222" text-anchor="middle" fill="#ff6b5e" font-size="11.5" font-weight="bold">تمويل</text>
+<div class="orbit rv">
+<svg viewBox="0 0 420 420">
+<circle class="ring" cx="210" cy="210" r="120"/>
+<circle class="ring ring2" cx="210" cy="210" r="180"/>
+<g class="core">
+<circle cx="210" cy="210" r="58" fill="rgba(60,232,166,.12)" stroke="#3ce8a6" stroke-width="2"/>
+<text x="210" y="203" text-anchor="middle" fill="#eef1fb" font-size="15" font-weight="bold">📡 Starlink</text>
+<text x="210" y="225" text-anchor="middle" fill="#3ce8a6" font-size="12" font-weight="bold">+$4.4B ربح</text>
+</g>
+<g class="spin"><g transform="translate(210,90)">
+<circle r="34" fill="rgba(52,210,255,.10)" stroke="#34d2ff" stroke-width="1.5"/>
+<text y="-2" text-anchor="middle" fill="#eef1fb" font-size="11.5" font-weight="bold">🚀 صواريخ</text>
+<text y="13" text-anchor="middle" fill="#8b94b8" font-size="9.5">تخدم النواة</text>
+</g></g>
+<g class="spin2"><g transform="translate(210,390)">
+<circle r="40" fill="rgba(255,112,89,.10)" stroke="#ff7059" stroke-width="1.5"/>
+<text y="-4" text-anchor="middle" fill="#eef1fb" font-size="11.5" font-weight="bold">🤖 ذكاء اصطناعي</text>
+<text y="12" text-anchor="middle" fill="#ff7059" font-size="10" font-weight="bold">−$14B</text>
+</g></g>
 </svg>
-<p class="dim" style="text-align:center">قسم أخضر واحد يربح ويموّل قسمين أحمرين يحرقون — هذي المعادلة كلها</p></div>
-
-<p class="dim" style="text-align:center;margin-top:16px">👇 اضغط أي قسم عشان تنفتح تفاصيله</p>
-
-<div class="card seg" onclick="this.classList.toggle('open')">
-<div class="h"><h2>1️⃣ قسم الفضاء</h2><span class="bdg bg1 en">Space</span><span class="ar">▾</span></div>
-<p class="dim">احتكار الإطلاق: تكلفة أقل من المنافسين بـ 50–70% بفضل إعادة الاستخدام</p>
-<div class="dt"><table>
-<tr><td>Falcon 9</td><td>165 إطلاق في 2025، لكن 43 فقط لعملاء خارجيين — الباقي داخلي لأقمار الإنترنت</td></tr>
-<tr><td>Falcon Heavy</td><td>الحمولات الثقيلة والعقود الحكومية والعسكرية</td></tr>
-<tr><td>Dragon</td><td>نقل الرواد والبضائع لمحطة الفضاء بعقود NASA</td></tr>
-<tr><td>Starship</td><td>مشروع القمر والمريخ — كل اختبار يهزّ السهم فورًا</td></tr>
-<tr><td>$5B</td><td>الإيراد المتوقع 2026 — محدود بقيود فيزيائية</td></tr>
-</table></div></div>
-
-<div class="card seg" style="border-color:rgba(75,224,160,.35)" onclick="this.classList.toggle('open')">
-<div class="h"><h2>2️⃣ قسم الاتصالات</h2><span class="bdg bg2 en">Starlink</span><span class="bdg bg2">البطل الحقيقي</span><span class="ar">▾</span></div>
-<p class="dim">61% من إيرادات 2025 وارتفعت لـ 69% — هذا القسم يدفع فواتير الجميع</p>
-<div class="dt"><table>
-<tr><td>$11.4B</td><td>إيرادات 2025 بنمو 48% وربح تشغيلي $4.4B — مركز الربح الأساسي</td></tr>
-<tr><td>10.3M</td><td>مشترك نشط في 160 دولة — أكثر من الضعف خلال سنة</td></tr>
-<tr><td>Starshield</td><td>النسخة العسكرية للبنتاغون: 10–15% من الإيرادات كأرضية مضمونة</td></tr>
-<tr><td>Direct-to-Cell</td><td>اتصال من القمر للجوال: ~650 قمر ومتوقع 25 مليون مستخدم بنهاية 2026</td></tr>
-<tr><td>$81 ⚠️</td><td>متوسط الإيراد الشهري للمشترك نزل 18% — ضغط على الهوامش</td></tr>
-</table></div></div>
-
-<div class="card seg" style="border-color:rgba(255,107,94,.35)" onclick="this.classList.toggle('open')">
-<div class="h"><h2>3️⃣ قسم الذكاء الاصطناعي</h2><span class="bdg bg3 en">xAI</span><span class="bdg bg3">ماكينة الحرق</span><span class="ar">▾</span></div>
-<p class="dim">اندمج في فبراير 2026 — وهو اللي رفع قصة التقييم من $800B إلى $1.75T</p>
-<div class="dt"><table>
-<tr><td>Grok</td><td>نموذج الذكاء الاصطناعي — بعيد جدًا عن التربّح</td></tr>
-<tr><td>X</td><td>منصة التواصل — إيرادات إعلانية متواضعة</td></tr>
-<tr><td>Colossus</td><td>مراكز بيانات عملاقة تلتهم رأسمال هائل</td></tr>
-<tr><td>−$14B 🔴</td><td>القسم يحقق ~$3.2B إيرادات مقابل حرق $14B على البنية التحتية</td></tr>
-<tr><td>Compute-in-Orbit</td><td>مراكز بيانات في الفضاء — قصة غير مثبتة لكنها باعت التقييم</td></tr>
-</table></div></div>
-
-<div class="card"><h2>لوحة الأرقام</h2><div class="stats" id="stats"></div></div>
-<div class="card"><h2>📰 آخر الأخبار <span class="dim" style="font-size:12px" id="nsrc"></span></h2><ul id="news"></ul></div>
-
-<div class="card"><h2>⚖️ الميزان</h2><div class="sc">
-<div class="pan pg"><h4>✅ نقاط القوة</h4><ul>
-<li>احتكار شبه كامل لسوق الإطلاق</li><li>ستارلينك ينمو ~50% سنويًا</li>
-<li>عقود البنتاغون وناسا مضمونة</li><li>~200 صندوق مؤشرات تملك السهم</li></ul></div>
-<div class="pan pb"><h4>🔴 المخاطر</h4><ul>
-<li>تقييم ضخم مقابل إيرادات ~$20B</li><li>الذكاء الاصطناعي يحرق مليارات</li>
-<li>تقلب عنيف — بيتا 5.79</li><li>كل شي معلّق برجل واحد</li></ul></div>
-</div></div>
-
-<div class="card"><h2>الخلاصة</h2><div id="tks"></div>
-<p class="dsc">⚠️ تحليل معلوماتي فقط وليس نصيحة استثمارية</p></div>
+</div>
 </div>
 
+<section class="rv">
+<div class="eyeb"><b>الأحداث المفصلية</b><span>2025 → 2026</span><div class="ln"></div></div>
+<div class="card"><div class="tl" id="tl"></div></div>
+</section>
+
+<section class="rv">
+<div class="eyeb"><b>الأقسام الثلاثة</b><span>اضغط للتفاصيل</span><div class="ln"></div></div>
+<div class="veins">
+<div class="vein v1" onclick="this.classList.toggle('open')">
+<div class="ic">🚀</div><h3>الفضاء</h3><span class="tag t1">SPACE</span>
+<p>احتكار الإطلاق بتكلفة أقل 50–70% من المنافسين — لكن بسقف فيزيائي</p>
+<table>
+<tr><td>Falcon 9</td><td>165 إطلاق في 2025، منها 43 فقط لعملاء خارجيين</td></tr>
+<tr><td>Dragon</td><td>نقل الرواد لمحطة الفضاء بعقود NASA</td></tr>
+<tr><td>Starship</td><td>مشروع المريخ — كل اختبار يهزّ السهم</td></tr>
+<tr><td>$5B</td><td>الإيراد المتوقع 2026</td></tr>
+</table>
+<div class="more">التفاصيل ▾</div>
+</div>
+<div class="vein v2" onclick="this.classList.toggle('open')">
+<div class="ic">📡</div><h3>الاتصالات</h3><span class="tag t2">STARLINK</span>
+<p>مركز الربح الوحيد: 69% من الإيرادات — يدفع فواتير الجميع</p>
+<table>
+<tr><td>$11.4B</td><td>إيرادات 2025 بنمو 48% وربح $4.4B</td></tr>
+<tr><td>10.3M</td><td>مشترك في 160 دولة</td></tr>
+<tr><td>Starshield</td><td>عقود البنتاغون: أرضية مضمونة</td></tr>
+<tr><td>$81 ⚠️</td><td>إيراد المشترك نزل 18% — ضغط هوامش</td></tr>
+</table>
+<div class="more">التفاصيل ▾</div>
+</div>
+<div class="vein v3" onclick="this.classList.toggle('open')">
+<div class="ic">🤖</div><h3>الذكاء الاصطناعي</h3><span class="tag t3">xAI + X</span>
+<p>ماكينة الحرق: $3.2B إيرادات مقابل $14B مصاريف — لكنه باع قصة التقييم</p>
+<table>
+<tr><td>Grok</td><td>بعيد جدًا عن التربّح</td></tr>
+<tr><td>Colossus</td><td>مراكز بيانات تلتهم الرأسمال</td></tr>
+<tr><td>Orbit-DC</td><td>حلم مراكز بيانات في الفضاء — غير مثبت</td></tr>
+</table>
+<div class="more">التفاصيل ▾</div>
+</div>
+</div>
+</section>
+
+<section class="rv">
+<div class="eyeb"><b>لوحة الأرقام</b><span>LIVE DATA</span><div class="ln"></div></div>
+<div class="stats" id="stats"></div>
+</section>
+
+<section class="rv">
+<div class="eyeb"><b>آخر الأخبار</b><span id="nsrc">AUTO</span><div class="ln"></div></div>
+<div class="card"><ul id="news"></ul></div>
+</section>
+
+<section class="rv">
+<div class="eyeb"><b>الميزان</b><span>PRO VIEW</span><div class="ln"></div></div>
+<div class="sc">
+<div class="pan pg"><h4>✅ القوة</h4><ul>
+<li>احتكار شبه كامل لسوق الإطلاق</li><li>نمو ~50% سنويًا للأقمار</li>
+<li>عقود البنتاغون وناسا مضمونة</li><li>~200 صندوق مؤشرات تملك السهم</li></ul></div>
+<div class="pan pb"><h4>🔴 الخطر</h4><ul>
+<li>تقييم ضخم مقابل إيرادات ~$20B</li><li>حرق مليارات على الذكاء الاصطناعي</li>
+<li>تقلب عنيف — بيتا 5.79</li><li>كل شي معلّق برجل واحد</li></ul></div>
+</div>
+</section>
+
+<section class="rv">
+<div class="eyeb"><b>الخلاصة</b><span>4 نقاط</span><div class="ln"></div></div>
+<div class="card" id="tks"></div>
+<p class="dsc">⚠️ تحليل معلوماتي فقط وليس نصيحة استثمارية · البيانات الحية من مصادر عامة</p>
+</section>
+
+</div>
 <script>
 var IPO=135;
-var L={revenue_2025:"إجمالي إيرادات 2025",starlink_revenue_2025:"إيرادات ستارلينك 2025",subscribers:"مشترك نشط",revenue_2026_expected:"الإيراد المتوقع 2026",eps:"ربحية السهم",beta:"بيتا — التقلب",etf_holders:"صندوق مؤشرات يملك السهم",next_earnings:"إعلان الأرباح القادم"};
-function px(url){return "https://api.allorigins.win/raw?url="+encodeURIComponent(url)}
+var L={revenue_2025:"إجمالي إيرادات 2025",starlink_revenue_2025:"إيرادات ستارلينك",subscribers:"مشترك نشط",revenue_2026_expected:"المتوقع 2026",eps:"ربحية السهم",beta:"بيتا · التقلب",etf_holders:"صندوق مؤشرات",next_earnings:"الأرباح القادمة"};
+function px(u){return "https://api.allorigins.win/raw?url="+encodeURIComponent(u)}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});
 fetch("data.json?v="+Date.now()).then(function(r){return r.json()}).then(function(d){
 IPO=d.ipo_price||135;
 document.getElementById("mc").textContent=d.market_cap;
 document.getElementById("tl").innerHTML=d.timeline.map(function(t){return '<div class="ts"><div class="w">'+t.when+'</div><div class="t">'+t.what+'</div><div class="n">'+t.note+'</div></div>'}).join("");
 document.getElementById("stats").innerHTML=Object.keys(d.stats).map(function(k){return '<div class="st"><b>'+d.stats[k]+'</b><span>'+(L[k]||k)+'</span></div>'}).join("");
 document.getElementById("news").innerHTML=d.news.map(function(n){return "<li>📌 "+n+"</li>"}).join("");
-document.getElementById("tks").innerHTML=d.takeaways.map(function(t,i){return '<div class="tk"><b class="gold">'+(i+1)+'.</b> '+t+'</div>'}).join("");
-sp(d.price_fallback,false);
-livePrice();liveNews();
+document.getElementById("tks").innerHTML=d.takeaways.map(function(t,i){return '<div class="tk"><i>0'+(i+1)+'</i><div>'+t+'</div></div>'}).join("");
+sp(d.price_fallback,false);livePrice();liveNews();
 }).catch(function(){document.getElementById("px").textContent="—";livePrice();liveNews()});
 function livePrice(){
 fetch(px("https://query1.finance.yahoo.com/v8/finance/chart/SPCX?interval=1d&range=1d")).then(function(r){return r.json()}).then(function(y){
@@ -170,16 +252,13 @@ var m=y.chart.result[0].meta,p=m.regularMarketPrice;
 if(p>0){sp(p,true);
 var pc=m.chartPreviousClose||m.previousClose;
 if(pc){var ch=((p-pc)/pc*100).toFixed(2);
-document.getElementById("pm").textContent="🟢 سعر حي تلقائي · تغير اليوم: "+(ch>0?"+":"")+ch+"%"}}
-}).catch(function(){document.getElementById("pm").textContent="⚪ آخر سعر محفوظ (تعذر الجلب الحي مؤقتًا)"})}
+document.getElementById("pm").textContent="🟢 حي · اليوم "+(ch>0?"+":"")+ch+"%"}}
+}).catch(function(){document.getElementById("pm").textContent="⚪ آخر سعر محفوظ"})}
 function tr(t){
 return fetch("https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&dt=t&q="+encodeURIComponent(t))
-.then(function(r){return r.json()})
-.then(function(j){return j[0].map(function(s){return s[0]}).join("")})
-.catch(function(){
-return fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(t)+"&langpair=en|ar")
-.then(function(r){return r.json()})
-.then(function(j){return (j.responseData&&j.responseData.translatedText)||t})
+.then(function(r){return r.json()}).then(function(j){return j[0].map(function(s){return s[0]}).join("")})
+.catch(function(){return fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(t)+"&langpair=en|ar")
+.then(function(r){return r.json()}).then(function(j){return (j.responseData&&j.responseData.translatedText)||t})
 .catch(function(){return t})})}
 function liveNews(){
 fetch(px("https://feeds.finance.yahoo.com/rss/2.0/headline?s=SPCX&region=US&lang=en-US")).then(function(r){return r.text()}).then(function(t){
@@ -187,18 +266,17 @@ var doc=new DOMParser().parseFromString(t,"text/xml");
 var items=Array.prototype.slice.call(doc.querySelectorAll("item"),0,6);
 if(!items.length)return;
 Promise.all(items.map(function(i){
-var ti=i.querySelector("title"),li=i.querySelector("link");
-var en=ti?ti.textContent:"";
-return tr(en).then(function(arb){return {ar:arb,en:en,link:li?li.textContent:"#"}})
+var ti=i.querySelector("title"),li=i.querySelector("link");var en=ti?ti.textContent:"";
+return tr(en).then(function(a){return {ar:a,en:en,link:li?li.textContent:"#"}})
 })).then(function(list){
-document.getElementById("nsrc").textContent="(مترجمة وتلقائية)";
+document.getElementById("nsrc").textContent="مترجمة تلقائيًا";
 document.getElementById("news").innerHTML=list.map(function(n){
-return '<li>📌 <a href="'+n.link+'" target="_blank">'+n.ar+'<span class="osrc">'+n.en+'</span></a></li>'}).join("")})
+return '<li><a href="'+n.link+'" target="_blank"><span class="arb">📌 '+n.ar+'</span><span class="osrc">'+n.en+'</span></a></li>'}).join("")})
 }).catch(function(){})}
 function sp(p,live){var e=document.getElementById("px"),b=p<IPO;
-e.textContent="$"+(+p).toFixed(2)+(b?" ▼":" ▲");e.className="en "+(b?"neg":"pos");
-document.getElementById("vi").textContent=(b?"تحت":"فوق")+" سعر الاكتتاب $"+IPO;
-if(!live)document.getElementById("pm").textContent="⏳ جاري جلب السعر الحي…"}
+e.textContent="$"+(+p).toFixed(2)+(b?" ▼":" ▲");e.className=(b?"neg":"pos");
+document.getElementById("vi").textContent=(b?"تحت":"فوق")+" الاكتتاب $"+IPO;
+if(!live)document.getElementById("pm").textContent="⏳ جاري الجلب الحي…"}
 setInterval(livePrice,60000);
 </script>
 </body>
