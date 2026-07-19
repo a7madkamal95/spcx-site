@@ -314,7 +314,8 @@ en:{revenue_2025:"Total revenue 2025",starlink_revenue_2025:"Starlink revenue",s
 var VEN={next_earnings:"Aug 6"};
 var TLEN=[{when:"Dec 2025",what:"Insider share sale",note:"valued the company at $800B"},{when:"Feb 2026",what:"The mega-merger",note:"absorbed xAI and X at a combined $1.25T"},{when:"Jun 12, 2026",what:"Largest IPO ever",note:"raised $75B+ at $135 per share"},{when:"Jul 2026",what:"Reality check",note:"stock fell ~30%, back below IPO"}];
 var TKEN=["This is effectively a telecom company — Starlink is the financial engine","Buying the stock means buying three companies at once","The valuation is priced on the future, not the present","The stock moves on news and test flights more than fundamentals"];
-function px(u){return "https://api.allorigins.win/raw?url="+encodeURIComponent(u)}
+var PXS=["https://api.allorigins.win/raw?url=","https://corsproxy.io/?url=","https://api.codetabs.com/v1/proxy?quest="];
+function pxf(u){var i=0;function nx(){if(i>=PXS.length)return Promise.reject(new Error("px"));var p=PXS[i]+encodeURIComponent(u);i=i+1;return fetch(p).then(function(r){if(!r.ok)throw 0;return r}).catch(nx)}return nx()}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.1});
 document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});
 function setLang(l){CUR=l;localStorage.setItem("lang",l);
@@ -335,11 +336,11 @@ sp(window.__LASTP||D.price_fallback,!!window.__LIVE);}
 fetch("data.json?v="+Date.now()).then(function(r){return r.json()}).then(function(d){
 D=d;window.__IPO=d.ipo_price||135;
 if(CUR!=="ar")setLang(CUR);else{renderDyn();}
-document.getElementById("news").innerHTML=(CUR==="ar"?d.news:[]).map(function(n){return "<li>📌 "+n+"</li>"}).join("");
+document.getElementById("news").innerHTML=(CUR==="ar"?d.news:[]).map(function(n){return '<li><span class="arb">📌 '+n+'</span><div class="nmeta"><span class="src">'+(CUR==="ar"?"تحليلنا الأسبوعي":"Weekly analysis")+'</span></div></li>'}).join("");
 livePrice();liveNews();
 }).catch(function(){document.getElementById("px").textContent="—";livePrice();liveNews()});
 function livePrice(){
-fetch(px("https://query1.finance.yahoo.com/v8/finance/chart/SPCX?interval=1d&range=1d")).then(function(r){return r.json()}).then(function(y){
+pxf("https://query1.finance.yahoo.com/v8/finance/chart/SPCX?interval=1d&range=1d").then(function(r){return r.json()}).then(function(y){
 var m=y.chart.result[0].meta,p=m.regularMarketPrice;
 if(p>0){window.__LASTP=p;window.__LIVE=true;sp(p,true);
 var pc=m.chartPreviousClose||m.previousClose;
@@ -373,14 +374,14 @@ if(m<1)return "now";if(m<60)return m+"m ago";
 var h2=Math.round(m/60);if(h2<24)return h2+"h ago";
 var d2=Math.round(h2/24);return d2+"d ago";}
 function renderNews(){
-if(!NEWSCACHE){if(D&&CUR==="ar")document.getElementById("news").innerHTML=D.news.map(function(n){return "<li>📌 "+n+"</li>"}).join("");return;}
+if(!NEWSCACHE){if(D&&CUR==="ar")document.getElementById("news").innerHTML=D.news.map(function(n){return '<li><span class="arb">📌 '+n+'</span><div class="nmeta"><span class="src">'+(CUR==="ar"?"تحليلنا الأسبوعي":"Weekly analysis")+'</span></div></li>'}).join("");return;}
 document.getElementById("nsrc").textContent=(CUR==="ar"?"مترجمة · مع المصدر":"LIVE · SOURCED");
 document.getElementById("news").innerHTML=NEWSCACHE.map(function(n){
 var head=(CUR==="ar")?('<span class="arb">📌 '+n.ar+'</span><span class="osrc">'+n.en+'</span>')
 :('<span class="arb" style="direction:ltr;display:block;text-align:left">📌 '+n.en+'</span>');
 return '<li><a href="'+n.link+'" target="_blank">'+head+'<div class="nmeta"><span class="src">'+n.src+'</span><span class="ndate">'+agoTxt(n.t)+'</span></div></a></li>'}).join("")}
 function liveNews(){
-fetch(px("https://feeds.finance.yahoo.com/rss/2.0/headline?s=SPCX&region=US&lang=en-US")).then(function(r){return r.text()}).then(function(t){
+pxf("https://feeds.finance.yahoo.com/rss/2.0/headline?s=SPCX&region=US&lang=en-US").then(function(r){return r.text()}).then(function(t){
 var doc=new DOMParser().parseFromString(t,"text/xml");
 var items=Array.prototype.slice.call(doc.querySelectorAll("item"),0,6);
 if(!items.length)return;
