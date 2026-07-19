@@ -51,6 +51,7 @@ td:first-child{white-space:nowrap;font-weight:700;color:var(--b);direction:ltr;t
 #news li:first-child{border-top:none}
 #news a{color:inherit;text-decoration:none}
 #news a:hover{color:var(--b)}
+.osrc{font-size:11px;color:var(--dim);direction:ltr;display:block;text-align:left}
 .sc{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
 @media(max-width:560px){.sc{grid-template-columns:1fr}}
 .pan{border-radius:14px;padding:14px;border:1px solid;font-size:13.5px}
@@ -171,15 +172,28 @@ var pc=m.chartPreviousClose||m.previousClose;
 if(pc){var ch=((p-pc)/pc*100).toFixed(2);
 document.getElementById("pm").textContent="🟢 سعر حي تلقائي · تغير اليوم: "+(ch>0?"+":"")+ch+"%"}}
 }).catch(function(){document.getElementById("pm").textContent="⚪ آخر سعر محفوظ (تعذر الجلب الحي مؤقتًا)"})}
+function tr(t){
+return fetch("https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&dt=t&q="+encodeURIComponent(t))
+.then(function(r){return r.json()})
+.then(function(j){return j[0].map(function(s){return s[0]}).join("")})
+.catch(function(){
+return fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(t)+"&langpair=en|ar")
+.then(function(r){return r.json()})
+.then(function(j){return (j.responseData&&j.responseData.translatedText)||t})
+.catch(function(){return t})})}
 function liveNews(){
 fetch(px("https://feeds.finance.yahoo.com/rss/2.0/headline?s=SPCX&region=US&lang=en-US")).then(function(r){return r.text()}).then(function(t){
 var doc=new DOMParser().parseFromString(t,"text/xml");
 var items=Array.prototype.slice.call(doc.querySelectorAll("item"),0,6);
-if(items.length){
-document.getElementById("nsrc").textContent="(تلقائية ومباشرة)";
-document.getElementById("news").innerHTML=items.map(function(i){
+if(!items.length)return;
+Promise.all(items.map(function(i){
 var ti=i.querySelector("title"),li=i.querySelector("link");
-return '<li dir="ltr" style="text-align:left">📌 <a href="'+(li?li.textContent:"#")+'" target="_blank">'+(ti?ti.textContent:"")+'</a></li>'}).join("")}
+var en=ti?ti.textContent:"";
+return tr(en).then(function(arb){return {ar:arb,en:en,link:li?li.textContent:"#"}})
+})).then(function(list){
+document.getElementById("nsrc").textContent="(مترجمة وتلقائية)";
+document.getElementById("news").innerHTML=list.map(function(n){
+return '<li>📌 <a href="'+n.link+'" target="_blank">'+n.ar+'<span class="osrc">'+n.en+'</span></a></li>'}).join("")})
 }).catch(function(){})}
 function sp(p,live){var e=document.getElementById("px"),b=p<IPO;
 e.textContent="$"+(+p).toFixed(2)+(b?" ▼":" ▲");e.className="en "+(b?"neg":"pos");
