@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-lang="ar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +16,9 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
+html[data-lang=en]{--disp:'Space Grotesk',sans-serif;--body:'Space Grotesk','Segoe UI',sans-serif}
+html[data-lang=ar] .i-en{display:none!important}
+html[data-lang=en] .i-ar{display:none!important}
 body{background:var(--void);color:var(--ink);font-family:var(--body);line-height:1.9;overflow-x:hidden}
 .blobs{position:fixed;inset:-20%;z-index:-2;filter:blur(70px);opacity:.85}
 .blob{position:absolute;border-radius:50%}
@@ -37,7 +40,7 @@ border-radius:22px;box-shadow:0 18px 50px rgba(0,0,0,.42),inset 0 1px 0 rgba(255
 position:relative;overflow:hidden}
 .gl::before{content:"";position:absolute;top:0;right:8%;left:38%;height:1px;
 background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent)}
-.bar{position:sticky;top:12px;z-index:50;display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:11px 20px;margin-top:16px}
+.bar{position:sticky;top:12px;z-index:50;display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:11px 20px;margin-top:16px}
 .bar .sym{font-family:var(--num);font-weight:700;letter-spacing:.06em;font-size:13px;color:var(--mut)}
 .bar .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint);animation:pl 1.6s infinite}
 @keyframes pl{50%{opacity:.3}}
@@ -45,12 +48,16 @@ background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent)}
 .neg{color:var(--coral)}.pos{color:var(--mint)}
 #pm,#vi{font-size:12px;color:var(--mut)}
 .en{direction:ltr;display:inline-block;font-family:var(--num)}
-.hero{padding:60px 0 16px;display:grid;grid-template-columns:1.08fr .92fr;gap:26px;align-items:center}
+.lng{margin-inline-start:auto;font-family:var(--num);font-weight:700;font-size:12.5px;letter-spacing:.08em;
+color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--edgeTop);border-radius:99px;
+padding:5px 16px;cursor:pointer;transition:background .2s,transform .2s}
+.lng:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
+.hero{padding:56px 0 16px;display:grid;grid-template-columns:1.08fr .92fr;gap:26px;align-items:center}
 @media(max-width:780px){.hero{grid-template-columns:1fr;text-align:center}}
 .kick{font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--a2)}
-h1{font-family:var(--disp);font-weight:900;font-size:clamp(40px,7vw,66px);line-height:1.12;margin-top:8px}
+h1{font-family:var(--disp);font-weight:900;font-size:clamp(38px,6.6vw,62px);line-height:1.12;margin-top:8px}
 h1 .grad{background:linear-gradient(92deg,var(--a2),var(--a1) 60%,#c78bff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{color:var(--mut);font-size:16px;max-width:46ch;margin-top:14px}
+.lead{color:var(--mut);font-size:16px;max-width:48ch;margin-top:14px}
 @media(max-width:780px){.lead{margin-inline:auto}}
 .orbit{position:relative;aspect-ratio:1;max-width:400px;margin-inline:auto;width:100%;padding:18px}
 .orbit svg{width:100%;height:100%;overflow:visible}
@@ -86,7 +93,9 @@ section{margin-top:54px}
 .vein h5{font-family:var(--disp);font-size:14px;font-weight:800;color:var(--gold);margin-top:14px;letter-spacing:.02em}
 .vein table{width:100%;border-collapse:collapse;font-size:12.8px;margin-top:6px}
 .vein td{padding:7px 4px;border-top:1px solid var(--edge);vertical-align:top;line-height:1.7}
-.vein td:first-child{font-family:var(--num);font-size:11.5px;white-space:nowrap;direction:ltr;text-align:right;font-weight:700}
+.vein td:first-child{font-family:var(--num);font-size:11.5px;white-space:nowrap;direction:ltr;font-weight:700}
+html[data-lang=ar] .vein td:first-child{text-align:right}
+html[data-lang=en] .vein td:first-child{text-align:left;padding-inline-end:10px}
 .more{font-size:11.5px;color:var(--a2);margin-top:10px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
 @media(max-width:780px){.stats{grid-template-columns:repeat(2,1fr)}}
@@ -128,14 +137,15 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <div class="bar gl rv">
 <span class="dot"></span><span class="sym">NASDAQ · SPCX</span>
 <span id="px">…</span><span id="vi"></span><span id="mc" class="en" style="color:var(--gold);font-weight:700"></span>
-<span id="pm" style="margin-inline-start:auto"></span>
+<span id="pm"></span>
+<button class="lng" id="lngBtn" onclick="setLang(CUR==='ar'?'en':'ar')">EN</button>
 </div>
 
 <div class="hero">
 <div class="rv">
-<div class="kick">تحليل استثماري حي · يتحدث تلقائيًا</div>
-<h1>إمبراطورية<br><span class="grad">سبيس إكس</span><br>خلف الزجاج</h1>
-<p class="lead">ثلاث شركات مدموجة بسهم واحد: صواريخ تحتكر الفضاء، إنترنت يموّل الجميع، وذكاء اصطناعي يحرق المليارات — بأرقام حية تتحدث لحالها.</p>
+<div class="kick"><span class="i-ar">تحليل استثماري حي · يتحدث تلقائيًا</span><span class="i-en">LIVE INVESTOR INTELLIGENCE · AUTO-UPDATING</span></div>
+<h1><span class="i-ar">إمبراطورية<br><span class="grad">سبيس إكس</span><br>خلف الزجاج</span><span class="i-en">The <span class="grad">SpaceX</span><br>Empire,<br>Behind Glass</span></h1>
+<p class="lead"><span class="i-ar">ثلاث شركات مدموجة بسهم واحد: صواريخ تحتكر الفضاء، إنترنت يموّل الجميع، وذكاء اصطناعي يحرق المليارات — بأرقام حية تتحدث لحالها.</span><span class="i-en">Three companies fused into one stock: rockets that monopolize launch, an internet business that funds everyone, and an AI unit burning billions — with live numbers that update themselves.</span></p>
 </div>
 <div class="orbit gl rv">
 <svg viewBox="0 0 420 420">
@@ -144,16 +154,20 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <g class="core">
 <circle cx="210" cy="210" r="58" fill="rgba(60,232,166,.14)" stroke="#3ce8a6" stroke-width="2"/>
 <text x="210" y="203" text-anchor="middle" fill="#f2f4ff" font-size="15" font-weight="bold">📡 Starlink</text>
-<text x="210" y="225" text-anchor="middle" fill="#3ce8a6" font-size="12" font-weight="bold">+$4.4B ربح</text>
+<text x="210" y="225" text-anchor="middle" fill="#3ce8a6" font-size="12" font-weight="bold" class="i-ar">+$4.4B ربح</text>
+<text x="210" y="225" text-anchor="middle" fill="#3ce8a6" font-size="12" font-weight="bold" class="i-en">+$4.4B profit</text>
 </g>
 <g class="spin"><g transform="translate(210,90)">
 <circle r="34" fill="rgba(56,212,255,.12)" stroke="#38d4ff" stroke-width="1.5"/>
-<text y="-2" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold">🚀 صواريخ</text>
-<text y="13" text-anchor="middle" fill="#a6aecd" font-size="9.5">تخدم النواة</text>
+<text y="-2" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold" class="i-ar">🚀 صواريخ</text>
+<text y="-2" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold" class="i-en">🚀 Rockets</text>
+<text y="13" text-anchor="middle" fill="#a6aecd" font-size="9.5" class="i-ar">تخدم النواة</text>
+<text y="13" text-anchor="middle" fill="#a6aecd" font-size="9.5" class="i-en">serve the core</text>
 </g></g>
 <g class="spin2"><g transform="translate(210,388)">
 <circle r="40" fill="rgba(255,122,99,.12)" stroke="#ff7a63" stroke-width="1.5"/>
-<text y="-4" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold">🤖 ذكاء اصطناعي</text>
+<text y="-4" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold" class="i-ar">🤖 ذكاء اصطناعي</text>
+<text y="-4" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold" class="i-en">🤖 AI</text>
 <text y="12" text-anchor="middle" fill="#ff7a63" font-size="10" font-weight="bold">−$14B</text>
 </g></g>
 </svg>
@@ -161,133 +175,201 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 </div>
 
 <section class="rv">
-<div class="eyeb"><b>الأحداث المفصلية</b><span>2025 → 2026</span><div class="ln"></div></div>
+<div class="eyeb"><b><span class="i-ar">الأحداث المفصلية</span><span class="i-en">Key Milestones</span></b><span>2025 → 2026</span><div class="ln"></div></div>
 <div class="gl pad"><div class="tl" id="tl"></div></div>
 </section>
-
 <section class="rv">
-<div class="eyeb"><b>الأقسام الثلاثة بالتفصيل</b><span>TAP TO OPEN</span><div class="ln"></div></div>
+<div class="eyeb"><b><span class="i-ar">الأقسام الثلاثة بالتفصيل</span><span class="i-en">The Three Divisions, In Depth</span></b><span>TAP TO OPEN</span><div class="ln"></div></div>
 <div class="veins">
 
 <div class="vein gl" onclick="this.classList.toggle('open')">
-<div class="ic">🚀</div><h3>الفضاء</h3><span class="tag t1">SPACE · ~$5B</span>
-<p>احتكار الإطلاق العالمي بتكلفة أقل 50–70% من بلو أوريجن وأريان سبيس — بفضل إعادة استخدام الصواريخ</p>
-<div class="dtl">
+<div class="ic">🚀</div><h3><span class="i-ar">الفضاء</span><span class="i-en">Space</span></h3><span class="tag t1">SPACE · ~$5B</span>
+<p><span class="i-ar">احتكار الإطلاق العالمي بتكلفة أقل 50–70% من بلو أوريجن وأريان سبيس — بفضل إعادة استخدام الصواريخ</span><span class="i-en">A near-monopoly on global launch, 50–70% cheaper than Blue Origin and Arianespace — thanks to rocket reuse</span></p>
+<div class="dtl i-ar">
 <h5>🛠️ الأسطول</h5>
 <table>
-<tr><td>Falcon 9</td><td>العمود الفقري: 165 إطلاق في 2025 — أكثر من كل دول العالم مجتمعة. الصاروخ الواحد يعاد استخدامه أكثر من 20 مرة</td></tr>
+<tr><td>Falcon 9</td><td>العمود الفقري: 165 إطلاق في 2025 — أكثر من كل دول العالم مجتمعة، بإيقاع إطلاق كل يومين تقريبًا. الصاروخ الواحد يعاد استخدامه أكثر من 20 مرة بمحركات Merlin</td></tr>
 <tr><td>Falcon Heavy</td><td>أقوى صاروخ تجاري عامل: للحمولات الثقيلة والأقمار العسكرية الحساسة بعقود حكومية عالية الهامش</td></tr>
-<tr><td>Dragon</td><td>المركبة الوحيدة الأمريكية لنقل الرواد لمحطة الفضاء — احتكار فعلي لعقود NASA بعد تقاعد منافسيها</td></tr>
-<tr><td>Starship</td><td>الرهان الأكبر: صاروخ عملاق كامل إعادة الاستخدام للقمر والمريخ. ما زال بالاختبارات، وأسواق التوقعات ترجح انفجار الاختبار القادم بنسبة 89% — والشركة تعتبر التفكك المخطط خطوة هندسية مقصودة</td></tr>
+<tr><td>Dragon</td><td>المركبة الأمريكية الوحيدة لنقل الرواد لمحطة الفضاء — احتكار فعلي لعقود NASA</td></tr>
+<tr><td>Starship</td><td>الرهان الأكبر: صاروخ عملاق كامل إعادة الاستخدام بمحركات Raptor للقمر والمريخ. أسواق التوقعات ترجح انفجار الاختبار القادم بنسبة 89% — والشركة تعتبر التفكك المخطط خطوة هندسية مقصودة</td></tr>
 </table>
-<h5>💼 اقتصاديات القسم</h5>
+<h5>🗺️ البنية والعقود</h5>
 <table>
-<tr><td>43/165</td><td>فقط 43 إطلاق لعملاء خارجيين يدفعون — الباقي داخلي لنشر أقمار ستارلينك (يعني القسم يخدم القسم الثاني أكثر ما يربح لنفسه)</td></tr>
-<tr><td>$5B</td><td>سقف الإيراد المتوقع 2026: منصات الإطلاق وأوقات التجهيز حدود فيزيائية ما تنضغط مهما زاد الطلب</td></tr>
-<tr><td>NASA+DoD</td><td>عقود ناسا والبنتاغون توفر دخل شبه مضمون وتمنح الشركة صفة مورّد سيادي يصعب استبداله</td></tr>
+<tr><td>القواعد</td><td>ثلاث منصات رئيسية: ستاربيس بتكساس (ستارشب)، كيب كانافيرال بفلوريدا، وفاندنبرغ بكاليفورنيا</td></tr>
+<tr><td>HLS</td><td>عقد ناسا لمركبة هبوط رواد القمر ضمن برنامج أرتيمس — ستارشب هو المركبة المختارة</td></tr>
+<tr><td>43/165</td><td>فقط 43 إطلاق لعملاء خارجيين يدفعون — الباقي داخلي لنشر أقمار ستارلينك</td></tr>
+<tr><td>$5B</td><td>سقف الإيراد 2026: منصات الإطلاق وأوقات التجهيز حدود فيزيائية ما تنضغط</td></tr>
 </table>
 </div>
-<div class="more">التفاصيل الكاملة ▾</div>
+<div class="dtl i-en">
+<h5>🛠️ The Fleet</h5>
+<table>
+<tr><td>Falcon 9</td><td>The backbone: 165 launches in 2025 — more than every country combined, roughly one launch every two days. Each Merlin-powered booster reflies 20+ times</td></tr>
+<tr><td>Falcon Heavy</td><td>The most powerful operational commercial rocket — heavy payloads and sensitive military satellites on high-margin government contracts</td></tr>
+<tr><td>Dragon</td><td>The only American crew vehicle to the ISS — an effective NASA monopoly</td></tr>
+<tr><td>Starship</td><td>The big bet: a fully reusable Raptor-powered giant for the Moon and Mars. Prediction markets put an 89% chance the next test ends in a breakup — the company calls planned breakups deliberate engineering</td></tr>
+</table>
+<h5>🗺️ Sites and Contracts</h5>
+<table>
+<tr><td>Sites</td><td>Three main pads: Starbase in Texas (Starship), Cape Canaveral in Florida, Vandenberg in California</td></tr>
+<tr><td>HLS</td><td>NASA Human Landing System contract under Artemis — Starship is the chosen lunar lander</td></tr>
+<tr><td>43/165</td><td>Only 43 launches were for paying external customers — the rest deploy Starlink satellites internally</td></tr>
+<tr><td>$5B</td><td>2026 revenue ceiling: pads and turnaround are physical limits that cannot be compressed</td></tr>
+</table>
+</div>
+<div class="more"><span class="i-ar">التفاصيل الكاملة ▾</span><span class="i-en">Full details ▾</span></div>
 </div>
 
 <div class="vein gl" onclick="this.classList.toggle('open')">
-<div class="ic">📡</div><h3>الاتصالات</h3><span class="tag t2">STARLINK · $11.4B</span>
-<p>مركز الربح الوحيد: 69% من إيرادات المجموعة — القسم اللي يدفع فواتير الجميع</p>
-<div class="dtl">
+<div class="ic">📡</div><h3><span class="i-ar">الاتصالات</span><span class="i-en">Connectivity</span></h3><span class="tag t2">STARLINK · $11.4B</span>
+<p><span class="i-ar">مركز الربح الوحيد: 69% من إيرادات المجموعة — القسم اللي يدفع فواتير الجميع</span><span class="i-en">The only profit center: 69% of group revenue — the division that pays everyone's bills</span></p>
+<div class="dtl i-ar">
 <h5>📈 مسار النمو</h5>
 <table>
-<tr><td>2024</td><td>إيرادات $7.7B — البداية الجدية للتربّح</td></tr>
-<tr><td>2025</td><td>قفزة لـ $11.4B بنمو 48%، وربح تشغيلي $4.4B بينما المجموعة كلها خاسرة محاسبيًا</td></tr>
-<tr><td>2026E</td><td>متوقع $15.5–20B، وحصة القسم ارتفعت من 50% إلى 69% من إيرادات المجموعة خلال سنتين</td></tr>
-<tr><td>10.3M</td><td>مشترك نشط في 160 دولة بنهاية مارس 2026 — أكثر من الضعف خلال سنة وحدة</td></tr>
+<tr><td>2024→25</td><td>من $7.7B إلى $11.4B بنمو 48%، وربح تشغيلي $4.4B بينما المجموعة خاسرة محاسبيًا</td></tr>
+<tr><td>2026E</td><td>متوقع $15.5–20B، والحصة قفزت من 50% إلى 69% من إيرادات المجموعة خلال سنتين</td></tr>
+<tr><td>10.3M</td><td>مشترك نشط في 160 دولة — أكثر من الضعف خلال سنة وحدة</td></tr>
 </table>
-<h5>🛰️ خطوط الأعمال</h5>
+<h5>🛰️ التقنية</h5>
 <table>
-<tr><td>Starshield</td><td>النسخة العسكرية: عقد $537M مع وزارة الدفاع حتى 2027، والعقود الحكومية 10–15% من الإيرادات كأرضية سيادية مستقرة</td></tr>
-<tr><td>D2C</td><td>اتصال مباشر من القمر للجوال بدون أبراج: ~650 قمر مخصص، 10M مستخدم شهري، ومتوقع 25M بنهاية 2026 — يفتح سوق شركات الاتصالات كلها</td></tr>
-<tr><td>طيران/بحري</td><td>عقود مع شركات طيران وسفن شحن ويخوت — أعلى هامش لكل مشترك</td></tr>
+<tr><td>الكوكبة</td><td>أكبر كوكبة أقمار بالتاريخ: آلاف الأقمار بمدار أرضي منخفض تغطي الكوكب</td></tr>
+<tr><td>Laser</td><td>روابط ليزر بين الأقمار تنقل البيانات بالفضاء مباشرة بدون محطات أرضية — تغطية للمحيطات والقطبين</td></tr>
+<tr><td>V3</td><td>الجيل الثالث من الأقمار أضخم وأسرع بكثير — مصمم للإطلاق على ستارشب، وهنا يلتقي القسمان</td></tr>
 </table>
-<h5>⚠️ نقطة الضعف</h5>
+<h5>💼 خطوط الأعمال</h5>
 <table>
-<tr><td>$81</td><td>متوسط الإيراد الشهري للمشترك نزل 18% — الشركة تضحي بالسعر مقابل التوسع بالأسواق الفقيرة، وهذا ضغط قادم على الهوامش</td></tr>
+<tr><td>Starshield</td><td>النسخة العسكرية: عقد $537M مع وزارة الدفاع حتى 2027، والعقود الحكومية 10–15% من الإيرادات</td></tr>
+<tr><td>D2C</td><td>اتصال مباشر من القمر للجوال: ~650 قمر مخصص، 10M مستخدم شهري، ومتوقع 25M بنهاية 2026</td></tr>
+<tr><td>طيران/بحري</td><td>عقود طيران وسفن ويخوت — أعلى هامش لكل مشترك</td></tr>
+<tr><td>$81 ⚠️</td><td>إيراد المشترك الشهري نزل 18% — توسّع بالأسواق الفقيرة يضغط الهوامش</td></tr>
 </table>
 </div>
-<div class="more">التفاصيل الكاملة ▾</div>
+<div class="dtl i-en">
+<h5>📈 Growth Path</h5>
+<table>
+<tr><td>2024→25</td><td>From $7.7B to $11.4B (+48%), with $4.4B operating profit while the group loses money on paper</td></tr>
+<tr><td>2026E</td><td>$15.5–20B expected; share of group revenue jumped from 50% to 69% in two years</td></tr>
+<tr><td>10.3M</td><td>Active subscribers across 160 countries — more than doubled in a single year</td></tr>
+</table>
+<h5>🛰️ The Technology</h5>
+<table>
+<tr><td>Fleet</td><td>The largest satellite constellation in history: thousands of low-Earth-orbit satellites blanketing the planet</td></tr>
+<tr><td>Laser</td><td>Inter-satellite laser links move data through space without ground stations — covering oceans and poles</td></tr>
+<tr><td>V3</td><td>Third-generation satellites are far larger and faster — designed to launch on Starship, where the two divisions meet</td></tr>
+</table>
+<h5>💼 Business Lines</h5>
+<table>
+<tr><td>Starshield</td><td>The military version: a $537M DoD contract through 2027; government deals are 10–15% of revenue</td></tr>
+<tr><td>D2C</td><td>Direct-to-Cell from satellite to phone: ~650 dedicated satellites, 10M monthly users, 25M expected by end of 2026</td></tr>
+<tr><td>Air/Sea</td><td>Airlines, shipping and yachts — the highest margin per subscriber</td></tr>
+<tr><td>$81 ⚠️</td><td>Monthly ARPU fell 18% — expansion into poorer markets is squeezing margins</td></tr>
+</table>
+</div>
+<div class="more"><span class="i-ar">التفاصيل الكاملة ▾</span><span class="i-en">Full details ▾</span></div>
 </div>
 
 <div class="vein gl" onclick="this.classList.toggle('open')">
-<div class="ic">🤖</div><h3>الذكاء الاصطناعي</h3><span class="tag t3">xAI + X · −$14B</span>
-<p>ماكينة الحرق اللي باعت قصة التقييم: رفعت السقف من $800B إلى $1.75T</p>
-<div class="dtl">
+<div class="ic">🤖</div><h3><span class="i-ar">الذكاء الاصطناعي</span><span class="i-en">AI</span></h3><span class="tag t3">xAI + X · −$14B</span>
+<p><span class="i-ar">ماكينة الحرق اللي باعت قصة التقييم: رفعت السقف من $800B إلى $1.75T</span><span class="i-en">The burn machine that sold the valuation story: it lifted the target from $800B to $1.75T</span></p>
+<div class="dtl i-ar">
 <h5>🔀 قصة الاندماج</h5>
 <table>
-<tr><td>فبراير 2026</td><td>ابتلعت المجموعة شركة xAI (ومعها منصة X) بقيمة مجمعة $1.25T — يعني مشتري السهم يشتري الثلاث شركات إجباريًا</td></tr>
-<tr><td>القصة</td><td>سرد "الحوسبة في المدار": مراكز بيانات ذكاء اصطناعي بالفضاء لتجاوز قيود الطاقة الأرضية — غير مثبت تقنيًا، لكنه اللي أقنع المستثمرين بمضاعفة التقييم</td></tr>
+<tr><td>فبراير 2026</td><td>ابتلعت المجموعة xAI (ومعها منصة X) بقيمة مجمعة $1.25T — مشتري السهم يشتري الثلاث شركات إجباريًا</td></tr>
+<tr><td>القصة</td><td>سرد "الحوسبة في المدار": مراكز بيانات بالفضاء تُطلق على ستارشب لتجاوز قيود الطاقة الأرضية — غير مثبت، لكنه ضاعف التقييم</td></tr>
 </table>
 <h5>🧩 المكونات</h5>
 <table>
-<tr><td>Grok</td><td>نموذج الذكاء الاصطناعي المنافس لـ ChatGPT — مدمج بمنصة X لكنه بعيد جدًا عن التربّح</td></tr>
-<tr><td>X</td><td>تويتر سابقًا: إيرادات إعلانية متواضعة نسبةً لحجم المنصة، وتعتمد على عودة المعلنين</td></tr>
-<tr><td>Colossus</td><td>من أضخم مراكز بيانات الذكاء الاصطناعي بالعالم — يلتهم رأسمال هائل بالشرائح والطاقة</td></tr>
+<tr><td>Grok</td><td>نموذج الذكاء الاصطناعي المنافس — مدمج بمنصة X وبالاشتراكات، وبعيد جدًا عن التربّح</td></tr>
+<tr><td>X</td><td>تويتر سابقًا: إيرادات إعلانية متواضعة تعتمد على عودة المعلنين</td></tr>
+<tr><td>Colossus</td><td>مركز البيانات العملاق في ممفيس بولاية تينيسي — مئات آلاف المعالجات الرسومية تلتهم الشرائح والطاقة</td></tr>
 </table>
 <h5>🔥 أرقام الحرق</h5>
 <table>
 <tr><td>$3.2B</td><td>إجمالي إيرادات القسم كله (غروك + إعلانات X)</td></tr>
 <tr><td>−$14B</td><td>الحرق السنوي على البنية التحتية — أكثر من 4 أضعاف الإيراد</td></tr>
-<tr><td>9 أشهر</td><td>وبأرقام أدق: حرق $9.5B في أول 9 أشهر من 2025 مقابل إيرادات $210M فقط من غروك</td></tr>
+<tr><td>9 أشهر</td><td>بأرقام أدق: حرق $9.5B بأول 9 أشهر من 2025 مقابل $210M فقط إيرادات غروك</td></tr>
 </table>
 </div>
-<div class="more">التفاصيل الكاملة ▾</div>
+<div class="dtl i-en">
+<h5>🔀 The Merger Story</h5>
+<table>
+<tr><td>Feb 2026</td><td>The group absorbed xAI (and with it, X) at a combined $1.25T — buying the stock means buying all three companies, no choice</td></tr>
+<tr><td>The Story</td><td>The "compute-in-orbit" narrative: AI datacenters launched to space on Starship to escape Earth's power limits — unproven, but it doubled the valuation</td></tr>
+</table>
+<h5>🧩 The Components</h5>
+<table>
+<tr><td>Grok</td><td>The challenger AI model — embedded in X and subscriptions, still far from profitability</td></tr>
+<tr><td>X</td><td>Formerly Twitter: modest ad revenue that depends on advertisers returning</td></tr>
+<tr><td>Colossus</td><td>The giant datacenter in Memphis, Tennessee — hundreds of thousands of GPUs devouring chips and power</td></tr>
+</table>
+<h5>🔥 The Burn</h5>
+<table>
+<tr><td>$3.2B</td><td>Total division revenue (Grok + X advertising)</td></tr>
+<tr><td>−$14B</td><td>Annual infrastructure burn — more than 4x revenue</td></tr>
+<tr><td>9 months</td><td>More precisely: $9.5B burned in the first nine months of 2025 against just $210M of Grok revenue</td></tr>
+</table>
+</div>
+<div class="more"><span class="i-ar">التفاصيل الكاملة ▾</span><span class="i-en">Full details ▾</span></div>
 </div>
 
 </div>
 </section>
 
 <section class="rv">
-<div class="eyeb"><b>لوحة الأرقام</b><span>LIVE DATA</span><div class="ln"></div></div>
+<div class="eyeb"><b><span class="i-ar">لوحة الأرقام</span><span class="i-en">The Numbers</span></b><span>LIVE DATA</span><div class="ln"></div></div>
 <div class="stats" id="stats"></div>
 </section>
 
 <section class="rv">
-<div class="eyeb"><b>آخر الأخبار</b><span id="nsrc">AUTO</span><div class="ln"></div></div>
+<div class="eyeb"><b><span class="i-ar">آخر الأخبار</span><span class="i-en">Latest News</span></b><span id="nsrc">AUTO</span><div class="ln"></div></div>
 <div class="gl pad"><ul id="news"></ul></div>
 </section>
 
 <section class="rv">
-<div class="eyeb"><b>الميزان</b><span>PRO VIEW</span><div class="ln"></div></div>
+<div class="eyeb"><b><span class="i-ar">الميزان</span><span class="i-en">The Balance</span></b><span>PRO VIEW</span><div class="ln"></div></div>
 <div class="sc">
-<div class="pan gl pg"><h4>✅ القوة</h4><ul>
-<li>احتكار شبه كامل لسوق الإطلاق الفضائي</li><li>ستارلينك ينمو ~50% سنويًا بهوامش ممتازة</li>
-<li>عقود البنتاغون وناسا = دخل شبه مضمون</li><li>~200 صندوق مؤشرات تشتري السهم هيكليًا</li>
-<li>كل نجاح لستارشب يخفض التكاليف أكثر</li></ul></div>
-<div class="pan gl pb"><h4>🔴 الخطر</h4><ul>
-<li>تقييم $1.7T+ مقابل إيرادات ~$20B — مضاعف متطرف</li><li>الذكاء الاصطناعي يحرق $14B سنويًا بدون عائد واضح</li>
-<li>تقلب عنيف: بيتا 5.79 وهبوط 30% بأول شهر</li><li>كل شي معلّق برجل واحد وصفقات أطراف ذات علاقة</li>
-<li>إيراد المشترك ينزل — ضغط أسعار قادم</li></ul></div>
+<div class="pan gl pg"><h4><span class="i-ar">✅ القوة</span><span class="i-en">✅ Strengths</span></h4>
+<ul class="i-ar"><li>احتكار شبه كامل لسوق الإطلاق الفضائي</li><li>ستارلينك ينمو ~50% سنويًا بهوامش ممتازة</li><li>عقود البنتاغون وناسا = دخل شبه مضمون</li><li>~200 صندوق مؤشرات تشتري السهم هيكليًا</li><li>كل نجاح لستارشب يخفض التكاليف أكثر</li></ul>
+<ul class="i-en"><li>Near-total monopoly on the launch market</li><li>Starlink growing ~50% a year at strong margins</li><li>Pentagon and NASA contracts = near-guaranteed income</li><li>~200 index funds are structural buyers</li><li>Every Starship success cuts costs further</li></ul></div>
+<div class="pan gl pb"><h4><span class="i-ar">🔴 الخطر</span><span class="i-en">🔴 Risks</span></h4>
+<ul class="i-ar"><li>تقييم $1.7T+ مقابل إيرادات ~$20B — مضاعف متطرف</li><li>الذكاء الاصطناعي يحرق $14B سنويًا بدون عائد واضح</li><li>تقلب عنيف: بيتا 5.79 وهبوط 30% بأول شهر</li><li>كل شي معلّق برجل واحد وصفقات أطراف ذات علاقة</li><li>إيراد المشترك ينزل — ضغط أسعار قادم</li></ul>
+<ul class="i-en"><li>$1.7T+ valuation on ~$20B revenue — an extreme multiple</li><li>AI burns $14B a year with no clear return</li><li>Violent volatility: beta 5.79, down 30% in month one</li><li>Everything hangs on one man and related-party deals</li><li>ARPU falling — pricing pressure ahead</li></ul></div>
 </div>
 </section>
 
 <section class="rv">
-<div class="eyeb"><b>الخلاصة</b><span>4 نقاط</span><div class="ln"></div></div>
+<div class="eyeb"><b><span class="i-ar">الخلاصة</span><span class="i-en">Takeaways</span></b><span>4</span><div class="ln"></div></div>
 <div class="gl pad" id="tks"></div>
-<p class="dsc">⚠️ تحليل معلوماتي فقط وليس نصيحة استثمارية · البيانات الحية من مصادر عامة</p>
+<p class="dsc"><span class="i-ar">⚠️ تحليل معلوماتي فقط وليس نصيحة استثمارية · البيانات الحية من مصادر عامة</span><span class="i-en">⚠️ Informational analysis only, not investment advice · Live data from public sources</span></p>
 </section>
 
 </div>
 <script>
-var IPO=135;
-var L={revenue_2025:"إجمالي إيرادات 2025",starlink_revenue_2025:"إيرادات ستارلينك",subscribers:"مشترك نشط",revenue_2026_expected:"المتوقع 2026",eps:"ربحية السهم",beta:"بيتا · التقلب",etf_holders:"صندوق مؤشرات",next_earnings:"الأرباح القادمة"};
+var CUR=localStorage.getItem("lang")||"ar";
+var D=null,NC=null;
+var L={ar:{revenue_2025:"إجمالي إيرادات 2025",starlink_revenue_2025:"إيرادات ستارلينك",subscribers:"مشترك نشط",revenue_2026_expected:"المتوقع 2026",eps:"ربحية السهم",beta:"بيتا · التقلب",etf_holders:"صندوق مؤشرات",next_earnings:"الأرباح القادمة"},
+en:{revenue_2025:"Total revenue 2025",starlink_revenue_2025:"Starlink revenue",subscribers:"Active subscribers",revenue_2026_expected:"2026 expected",eps:"EPS",beta:"Beta · volatility",etf_holders:"Index funds holding",next_earnings:"Next earnings"}};
+var TLEN=[{when:"Dec 2025",what:"Insider share sale",note:"Valued the company at $800B"},{when:"Feb 2026",what:"The mega-merger",note:"Absorbed xAI and X at a combined $1.25T"},{when:"Jun 12, 2026",what:"Biggest IPO in history",note:"Raised $75B+ at $135 per share"},{when:"Jul 2026",what:"Back to Earth",note:"Stock fell ~30%, below the IPO price"}];
+var TKEN=["This is effectively a telecom company — Starlink is the financial engine","Buying the stock means buying three companies at once","The valuation is priced on the future, not the present","The stock trades on news and tests more than numbers"];
 function px(u){return "https://api.allorigins.win/raw?url="+encodeURIComponent(u)}
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.1});
 document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});
+function setLang(l){CUR=l;localStorage.setItem("lang",l);
+document.documentElement.setAttribute("lang",l);
+document.documentElement.setAttribute("dir",l==="ar"?"rtl":"ltr");
+document.documentElement.setAttribute("data-lang",l);
+document.getElementById("lngBtn").textContent=l==="ar"?"EN":"عربي";
+renderDyn();renderNews();sp(window.__lastP||124,window.__lastLive||false);}
+function renderDyn(){if(!D)return;
+var tl=CUR==="ar"?D.timeline:TLEN;
+document.getElementById("tl").innerHTML=tl.map(function(t){return '<div class="ts"><div class="w">'+t.when+'</div><div class="t">'+t.what+'</div><div class="n">'+t.note+'</div></div>'}).join("");
+document.getElementById("stats").innerHTML=Object.keys(D.stats).map(function(k){return '<div class="st gl"><b>'+D.stats[k]+'</b><span>'+(L[CUR][k]||k)+'</span></div>'}).join("");
+var tk=CUR==="ar"?D.takeaways:TKEN;
+document.getElementById("tks").innerHTML=tk.map(function(t,i){return '<div class="tk"><i>0'+(i+1)+'</i><div>'+t+'</div></div>'}).join("");
+if(!NC){document.getElementById("news").innerHTML=CUR==="ar"?D.news.map(function(n){return "<li>📌 "+n+"</li>"}).join(""):"<li>Loading live headlines…</li>"}}
 fetch("data.json?v="+Date.now()).then(function(r){return r.json()}).then(function(d){
-IPO=d.ipo_price||135;
-document.getElementById("mc").textContent=d.market_cap;
-document.getElementById("tl").innerHTML=d.timeline.map(function(t){return '<div class="ts"><div class="w">'+t.when+'</div><div class="t">'+t.what+'</div><div class="n">'+t.note+'</div></div>'}).join("");
-document.getElementById("stats").innerHTML=Object.keys(d.stats).map(function(k){return '<div class="st gl"><b>'+d.stats[k]+'</b><span>'+(L[k]||k)+'</span></div>'}).join("");
-document.getElementById("news").innerHTML=d.news.map(function(n){return "<li>📌 "+n+"</li>"}).join("");
-document.getElementById("tks").innerHTML=d.takeaways.map(function(t,i){return '<div class="tk"><i>0'+(i+1)+'</i><div>'+t+'</div></div>'}).join("");
-sp(d.price_fallback,false);livePrice();liveNews();
+D=d;document.getElementById("mc").textContent=d.market_cap;
+renderDyn();sp(d.price_fallback,false);livePrice();liveNews();
 }).catch(function(){document.getElementById("px").textContent="—";livePrice();liveNews()});
 function livePrice(){
 fetch(px("https://query1.finance.yahoo.com/v8/finance/chart/SPCX?interval=1d&range=1d")).then(function(r){return r.json()}).then(function(y){
@@ -295,35 +377,34 @@ var m=y.chart.result[0].meta,p=m.regularMarketPrice;
 if(p>0){sp(p,true);
 var pc=m.chartPreviousClose||m.previousClose;
 if(pc){var ch=((p-pc)/pc*100).toFixed(2);
-document.getElementById("pm").textContent="🟢 حي · اليوم "+(ch>0?"+":"")+ch+"%"}}
-}).catch(function(){document.getElementById("pm").textContent="⚪ آخر سعر محفوظ"})}
+document.getElementById("pm").textContent=(CUR==="ar"?"🟢 حي · اليوم ":"🟢 Live · today ")+(ch>0?"+":"")+ch+"%"}}
+}).catch(function(){document.getElementById("pm").textContent=CUR==="ar"?"⚪ آخر سعر محفوظ":"⚪ Last saved price"})}
 function tr(t){
 return fetch("https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=ar&dt=t&q="+encodeURIComponent(t))
 .then(function(r){return r.json()}).then(function(j){return j[0].map(function(s){return s[0]}).join("")})
 .catch(function(){return fetch("https://api.mymemory.translated.net/get?q="+encodeURIComponent(t)+"&langpair=en|ar")
 .then(function(r){return r.json()}).then(function(j){return (j.responseData&&j.responseData.translatedText)||t})
 .catch(function(){return t})})}
-var SRC={"finance.yahoo.com":"Yahoo Finance","yahoo.com":"Yahoo","reuters.com":"Reuters","bloomberg.com":"Bloomberg","cnbc.com":"CNBC","wsj.com":"WSJ","ft.com":"Financial Times","barrons.com":"Barron's","marketwatch.com":"MarketWatch","investors.com":"IBD","fool.com":"Motley Fool","seekingalpha.com":"Seeking Alpha","benzinga.com":"Benzinga","businessinsider.com":"Business Insider","forbes.com":"Forbes","techcrunch.com":"TechCrunch","theverge.com":"The Verge","spacenews.com":"SpaceNews","apnews.com":"AP","nytimes.com":"NY Times","cnn.com":"CNN","bbc.com":"BBC","investing.com":"Investing.com","zacks.com":"Zacks","tipranks.com":"TipRanks"};
+var SRC={"finance.yahoo.com":"Yahoo Finance","yahoo.com":"Yahoo","reuters.com":"Reuters","bloomberg.com":"Bloomberg","cnbc.com":"CNBC","wsj.com":"WSJ","ft.com":"Financial Times","barrons.com":"Barrons","marketwatch.com":"MarketWatch","investors.com":"IBD","fool.com":"Motley Fool","seekingalpha.com":"Seeking Alpha","benzinga.com":"Benzinga","businessinsider.com":"Business Insider","forbes.com":"Forbes","techcrunch.com":"TechCrunch","theverge.com":"The Verge","spacenews.com":"SpaceNews","apnews.com":"AP","nytimes.com":"NY Times","cnn.com":"CNN","bbc.com":"BBC","investing.com":"Investing.com","zacks.com":"Zacks","tipranks.com":"TipRanks"};
 function srcName(item,link){
 var s=item.querySelector("source");
 if(s&&s.textContent.trim())return s.textContent.trim();
 try{var h=new URL(link).hostname.replace(/^www\./,"");
 if(SRC[h])return SRC[h];
-var parts=h.split(".");var base=parts.slice(-2).join(".");
+var base=h.split(".").slice(-2).join(".");
 if(SRC[base])return SRC[base];
-return base.split(".")[0].charAt(0).toUpperCase()+base.split(".")[0].slice(1);
-}catch(e){return "المصدر"}}
+var n=base.split(".")[0];return n.charAt(0).toUpperCase()+n.slice(1);
+}catch(e){return "Source"}}
 function ago(ds){
-if(!ds)return "";
-var t=new Date(ds).getTime();if(isNaN(t))return "";
+if(!ds)return "";var t=new Date(ds).getTime();if(isNaN(t))return "";
 var m=Math.round((Date.now()-t)/60000);
-if(m<1)return "الحين";
-if(m<60)return "قبل "+m+" دقيقة";
-var h=Math.round(m/60);
-if(h<24)return "قبل "+h+" ساعة";
-var dd=Math.round(h/24);
-if(dd===1)return "أمس";
-return "قبل "+dd+" يوم";}
+if(CUR==="ar"){if(m<1)return "الحين";if(m<60)return "قبل "+m+" دقيقة";var h=Math.round(m/60);if(h<24)return "قبل "+h+" ساعة";var dd=Math.round(h/24);return dd===1?"أمس":"قبل "+dd+" يوم"}
+if(m<1)return "now";if(m<60)return m+"m ago";var h2=Math.round(m/60);if(h2<24)return h2+"h ago";var d2=Math.round(h2/24);return d2===1?"yesterday":d2+"d ago"}
+function renderNews(){if(!NC)return;
+document.getElementById("nsrc").textContent=CUR==="ar"?"مترجمة · مع المصدر":"LIVE · SOURCED";
+document.getElementById("news").innerHTML=NC.map(function(n){
+var head=CUR==="ar"?('<span class="arb">📌 '+n.ar+'</span><span class="osrc">'+n.en+'</span>'):('<span class="arb">📌 '+n.en+'</span>');
+return '<li><a href="'+n.link+'" target="_blank">'+head+'<div class="nmeta"><span class="src">'+n.src+'</span><span class="ndate">'+ago(n.pd)+'</span></div></a></li>'}).join("")}
 function liveNews(){
 fetch(px("https://feeds.finance.yahoo.com/rss/2.0/headline?s=SPCX&region=US&lang=en-US")).then(function(r){return r.text()}).then(function(t){
 var doc=new DOMParser().parseFromString(t,"text/xml");
@@ -332,17 +413,16 @@ if(!items.length)return;
 Promise.all(items.map(function(i){
 var ti=i.querySelector("title"),li=i.querySelector("link"),pd=i.querySelector("pubDate");
 var en=ti?ti.textContent:"";var link=li?li.textContent:"#";
-return tr(en).then(function(a){return {ar:a,en:en,link:link,src:srcName(i,link),when:ago(pd?pd.textContent:"")}})
-})).then(function(list){
-document.getElementById("nsrc").textContent="مترجمة · مع المصدر";
-document.getElementById("news").innerHTML=list.map(function(n){
-return '<li><a href="'+n.link+'" target="_blank"><span class="arb">📌 '+n.ar+'</span><span class="osrc">'+n.en+'</span><div class="nmeta"><span class="src">'+n.src+'</span><span class="ndate">'+n.when+'</span></div></a></li>'}).join("")})
+return tr(en).then(function(a){return {ar:a,en:en,link:link,src:srcName(i,link),pd:pd?pd.textContent:""}})
+})).then(function(list){NC=list;renderNews()})
 }).catch(function(){})}
-function sp(p,live){var e=document.getElementById("px"),b=p<IPO;
+function sp(p,live){window.__lastP=p;window.__lastLive=live;
+var e=document.getElementById("px"),ipo=(D&&D.ipo_price)||135,b=p<ipo;
 e.textContent="$"+(+p).toFixed(2)+(b?" ▼":" ▲");e.className=(b?"neg":"pos");
-document.getElementById("vi").textContent=(b?"تحت":"فوق")+" الاكتتاب $"+IPO;
-if(!live)document.getElementById("pm").textContent="⏳ جاري الجلب الحي…"}
+document.getElementById("vi").textContent=CUR==="ar"?((b?"تحت":"فوق")+" الاكتتاب $"+ipo):((b?"below":"above")+" IPO $"+ipo);
+if(!live)document.getElementById("pm").textContent=CUR==="ar"?"⏳ جاري الجلب الحي…":"⏳ Fetching live…"}
 setInterval(livePrice,60000);
+setLang(CUR);
 </script>
 </body>
 </html>
