@@ -8,123 +8,133 @@
 <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
---void:#050810;--neb1:#0d1224;--neb2:#131a33;--line:rgba(140,160,255,.13);
---ink:#eef1fb;--mut:#8b94b8;
---a1:#7c5cff;--a2:#34d2ff;--mint:#3ce8a6;--coral:#ff7059;--gold:#ffce5c;
+--void:#06070f;--ink:#f2f4ff;--mut:#a6aecd;
+--a1:#8b5cff;--a2:#38d4ff;--mint:#3ce8a6;--coral:#ff7a63;--gold:#ffd166;
+--glass:rgba(255,255,255,.055);--glassH:rgba(255,255,255,.10);
+--edge:rgba(255,255,255,.14);--edgeTop:rgba(255,255,255,.32);
 --disp:'Zain',sans-serif;--body:'IBM Plex Sans Arabic',Tahoma,sans-serif;--num:'Space Grotesk',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--void);color:var(--ink);font-family:var(--body);line-height:1.9;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;z-index:-1;
-background:radial-gradient(900px 500px at 85% -10%,rgba(124,92,255,.16),transparent 60%),
-radial-gradient(700px 420px at 8% 12%,rgba(52,210,255,.10),transparent 55%),
-radial-gradient(600px 500px at 50% 110%,rgba(60,232,166,.06),transparent 60%)}
-.wrap{max-width:940px;margin:0 auto;padding:0 20px 90px}
-::selection{background:rgba(124,92,255,.4)}
-/* شريط السعر الملاصق */
-.bar{position:sticky;top:10px;z-index:50;display:flex;gap:16px;align-items:center;flex-wrap:wrap;
-background:rgba(13,18,36,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-border:1px solid var(--line);border-radius:16px;padding:10px 18px;margin-top:14px;
-box-shadow:0 10px 40px rgba(0,0,0,.45)}
-.bar .sym{font-family:var(--num);font-weight:700;letter-spacing:.06em;font-size:14px;color:var(--mut)}
-.bar .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint);animation:pl 1.6s infinite}
+/* الشفق المتحرك خلف الزجاج */
+.blobs{position:fixed;inset:-20%;z-index:-2;filter:blur(70px);opacity:.85}
+.blob{position:absolute;border-radius:50%}
+.b1{width:46vw;height:46vw;background:radial-gradient(circle,rgba(139,92,255,.55),transparent 65%);top:-6%;right:-4%;animation:f1 26s ease-in-out infinite}
+.b2{width:40vw;height:40vw;background:radial-gradient(circle,rgba(56,212,255,.45),transparent 65%);top:28%;left:-8%;animation:f2 32s ease-in-out infinite}
+.b3{width:36vw;height:36vw;background:radial-gradient(circle,rgba(60,232,166,.30),transparent 65%);bottom:-10%;right:22%;animation:f3 38s ease-in-out infinite}
+.b4{width:28vw;height:28vw;background:radial-gradient(circle,rgba(255,122,99,.25),transparent 65%);top:55%;right:-6%;animation:f2 44s ease-in-out infinite reverse}
+@keyframes f1{50%{transform:translate(-8vw,10vh) scale(1.15)}}
+@keyframes f2{50%{transform:translate(9vw,-8vh) scale(1.1)}}
+@keyframes f3{50%{transform:translate(-6vw,-9vh) scale(1.2)}}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+background-image:radial-gradient(rgba(255,255,255,.5) .6px,transparent .6px);background-size:110px 110px;opacity:.14}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px 90px}
+::selection{background:rgba(139,92,255,.45)}
+/* الزجاج الأساسي */
+.gl{background:var(--glass);
+backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);
+border:1px solid var(--edge);border-top-color:var(--edgeTop);
+border-radius:22px;box-shadow:0 18px 50px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08);
+position:relative;overflow:hidden}
+.gl::before{content:"";position:absolute;top:0;right:8%;left:38%;height:1px;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent)}
+/* شريط السعر */
+.bar{position:sticky;top:12px;z-index:50;display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:11px 20px;margin-top:16px}
+.bar .sym{font-family:var(--num);font-weight:700;letter-spacing:.06em;font-size:13px;color:var(--mut)}
+.bar .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint);animation:pl 1.6s infinite}
 @keyframes pl{50%{opacity:.3}}
-#px{font-family:var(--num);font-weight:700;font-size:22px;direction:ltr}
+#px{font-family:var(--num);font-weight:700;font-size:23px;direction:ltr}
 .neg{color:var(--coral)}.pos{color:var(--mint)}
 #pm,#vi{font-size:12px;color:var(--mut)}
 .en{direction:ltr;display:inline-block;font-family:var(--num)}
 /* الهيرو */
-.hero{padding:64px 0 20px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
-@media(max-width:760px){.hero{grid-template-columns:1fr;text-align:center}}
-.kick{font-size:13px;font-weight:700;letter-spacing:.2em;color:var(--a2);margin-bottom:10px}
-h1{font-family:var(--disp);font-weight:900;font-size:clamp(38px,7vw,64px);line-height:1.15}
-h1 .grad{background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{color:var(--mut);font-size:16px;max-width:46ch;margin-top:12px}
-@media(max-width:760px){.lead{margin-inline:auto}}
-/* النظام المداري — العنصر المميز */
-.orbit{position:relative;aspect-ratio:1;max-width:380px;margin-inline:auto;width:100%}
+.hero{padding:60px 0 16px;display:grid;grid-template-columns:1.08fr .92fr;gap:26px;align-items:center}
+@media(max-width:780px){.hero{grid-template-columns:1fr;text-align:center}}
+.kick{font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--a2)}
+h1{font-family:var(--disp);font-weight:900;font-size:clamp(40px,7vw,66px);line-height:1.12;margin-top:8px}
+h1 .grad{background:linear-gradient(92deg,var(--a2),var(--a1) 60%,#c78bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mut);font-size:16px;max-width:46ch;margin-top:14px}
+@media(max-width:780px){.lead{margin-inline:auto}}
+/* المدار الزجاجي */
+.orbit{position:relative;aspect-ratio:1;max-width:400px;margin-inline:auto;width:100%;padding:18px}
 .orbit svg{width:100%;height:100%;overflow:visible}
-.ring{fill:none;stroke:rgba(140,160,255,.18);stroke-width:1}
-.ring2{stroke-dasharray:3 7}
+.ring{fill:none;stroke:rgba(255,255,255,.16);stroke-width:1}
+.ring2{stroke-dasharray:3 8}
 .spin{transform-origin:210px 210px;animation:orb 26s linear infinite}
-.spin2{transform-origin:210px 210px;animation:orb 40s linear infinite reverse}
+.spin2{transform-origin:210px 210px;animation:orb 42s linear infinite reverse}
 @keyframes orb{to{transform:rotate(360deg)}}
-.core{filter:drop-shadow(0 0 26px rgba(60,232,166,.55))}
-.sat t, .orbit text{font-family:var(--body)}
+.core{filter:drop-shadow(0 0 30px rgba(60,232,166,.55))}
 /* الأقسام */
-section{margin-top:56px}
+section{margin-top:54px}
 .eyeb{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.eyeb .ln{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
-.eyeb b{font-family:var(--disp);font-weight:800;font-size:24px}
-.eyeb span{font-size:12px;letter-spacing:.18em;color:var(--a2);font-weight:700}
-.card{background:linear-gradient(160deg,var(--neb2),var(--neb1));border:1px solid var(--line);
-border-radius:20px;padding:24px;position:relative}
-.card::before{content:"";position:absolute;inset:0;border-radius:20px;padding:1px;
-background:linear-gradient(140deg,rgba(124,92,255,.35),transparent 30%,transparent 70%,rgba(52,210,255,.25));
--webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.eyeb .ln{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.22),transparent)}
+.eyeb b{font-family:var(--disp);font-weight:800;font-size:25px}
+.eyeb span{font-family:var(--num);font-size:11px;letter-spacing:.2em;color:var(--a2);font-weight:700}
+.pad{padding:24px}
 /* الأحداث */
-.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-@media(max-width:760px){.tl{grid-template-columns:repeat(2,1fr)}}
-.ts{padding:14px;border-radius:14px;background:rgba(255,255,255,.02);border:1px solid var(--line)}
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+@media(max-width:780px){.tl{grid-template-columns:repeat(2,1fr)}}
+.ts{padding:14px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--edge);border-top-color:var(--edgeTop)}
 .ts .w{font-family:var(--num);font-size:11px;color:var(--gold);letter-spacing:.08em}
-.ts .t{font-family:var(--disp);font-weight:800;font-size:16px;margin-top:2px}
+.ts .t{font-family:var(--disp);font-weight:800;font-size:16px}
 .ts .n{font-size:12.5px;color:var(--mut);line-height:1.7}
-/* الشرايين */
+/* الأقسام الثلاثة */
 .veins{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media(max-width:760px){.veins{grid-template-columns:1fr}}
-.vein{border-radius:16px;padding:18px;background:rgba(255,255,255,.02);border:1px solid var(--line);cursor:pointer;transition:transform .25s,border-color .25s}
-.vein:hover{transform:translateY(-4px)}
-.v1:hover{border-color:rgba(52,210,255,.5)}.v2:hover{border-color:rgba(60,232,166,.5)}.v3:hover{border-color:rgba(255,112,89,.5)}
-.vein .ic{font-size:26px}
-.vein h3{font-family:var(--disp);font-weight:800;font-size:20px;margin-top:6px}
-.tag{display:inline-block;font-family:var(--num);font-size:11px;letter-spacing:.08em;border-radius:99px;padding:2px 10px;border:1px solid;margin-top:4px}
-.t1{color:var(--a2);border-color:rgba(52,210,255,.4)}.t2{color:var(--mint);border-color:rgba(60,232,166,.4)}.t3{color:var(--coral);border-color:rgba(255,112,89,.4)}
-.vein p{font-size:13px;color:var(--mut);margin-top:8px}
+@media(max-width:780px){.veins{grid-template-columns:1fr}}
+.vein{padding:20px;cursor:pointer;transition:transform .28s,background .28s}
+.vein:hover{transform:translateY(-5px);background:var(--glassH)}
+.vein .ic{font-size:27px}
+.vein h3{font-family:var(--disp);font-weight:800;font-size:21px;margin-top:6px}
+.tag{display:inline-block;font-family:var(--num);font-size:11px;letter-spacing:.1em;border-radius:99px;padding:2px 11px;border:1px solid;margin-top:5px;background:rgba(255,255,255,.05)}
+.t1{color:var(--a2);border-color:rgba(56,212,255,.45)}.t2{color:var(--mint);border-color:rgba(60,232,166,.45)}.t3{color:var(--coral);border-color:rgba(255,122,99,.45)}
+.vein p{font-size:13px;color:var(--mut);margin-top:9px}
 .vein table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;display:none}
 .vein.open table{display:table}
-.vein td{padding:7px 4px;border-top:1px solid var(--line);vertical-align:top;line-height:1.7}
-.vein td:first-child{font-family:var(--num);font-size:12px;white-space:nowrap;color:var(--ink);direction:ltr;text-align:right;font-weight:700}
-.more{font-size:11.5px;color:var(--a2);margin-top:8px}
+.vein td{padding:7px 4px;border-top:1px solid var(--edge);vertical-align:top;line-height:1.7}
+.vein td:first-child{font-family:var(--num);font-size:12px;white-space:nowrap;direction:ltr;text-align:right;font-weight:700}
+.more{font-size:11.5px;color:var(--a2);margin-top:9px}
 /* الأرقام */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
-.st{border-radius:16px;padding:18px 14px;background:rgba(255,255,255,.02);border:1px solid var(--line);text-align:center;transition:transform .25s}
-.st:hover{transform:translateY(-3px)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+@media(max-width:780px){.stats{grid-template-columns:repeat(2,1fr)}}
+.st{padding:18px 12px;text-align:center;transition:transform .28s,background .28s}
+.st:hover{transform:translateY(-4px);background:var(--glassH)}
 .st b{display:block;font-family:var(--num);font-size:26px;font-weight:700;direction:ltr;
 background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:text;background-clip:text;color:transparent}
 .st span{font-size:12px;color:var(--mut)}
 /* الأخبار */
-#news li{list-style:none;padding:13px 0;border-top:1px solid var(--line);font-size:14.5px}
+#news li{list-style:none;padding:13px 0;border-top:1px solid var(--edge);font-size:14.5px}
 #news li:first-child{border-top:none}
 #news a{color:inherit;text-decoration:none;display:block}
 #news a:hover .arb{color:var(--a2)}
 .arb{transition:color .2s;font-weight:500}
-.osrc{font-family:var(--num);font-size:11px;color:var(--mut);direction:ltr;display:block;text-align:left;margin-top:2px;opacity:.75}
+.osrc{font-family:var(--num);font-size:11px;color:var(--mut);direction:ltr;display:block;text-align:left;margin-top:2px;opacity:.7}
 /* الميزان */
-.sc{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sc{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 @media(max-width:640px){.sc{grid-template-columns:1fr}}
-.pan{border-radius:16px;padding:18px;border:1px solid;font-size:13.5px;background:rgba(255,255,255,.02)}
-.pg{border-color:rgba(60,232,166,.35)}.pb{border-color:rgba(255,112,89,.35)}
-.pan h4{font-family:var(--disp);font-weight:800;font-size:18px;margin-bottom:8px}
+.pan{padding:18px;font-size:13.5px}
+.pan h4{font-family:var(--disp);font-weight:800;font-size:19px;margin-bottom:8px}
 .pg h4{color:var(--mint)}.pb h4{color:var(--coral)}
-.pan li{list-style:none;padding:5px 0;border-top:1px dashed var(--line)}
+.pg{box-shadow:0 18px 50px rgba(0,0,0,.42),inset 0 0 40px rgba(60,232,166,.05)}
+.pb{box-shadow:0 18px 50px rgba(0,0,0,.42),inset 0 0 40px rgba(255,122,99,.05)}
+.pan li{list-style:none;padding:5px 0;border-top:1px dashed var(--edge)}
 .pan li:first-of-type{border-top:none}
 /* الخلاصة */
-.tk{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line);font-size:15px}
+.tk{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--edge);font-size:15px}
 .tk:first-child{border-top:none}
-.tk i{font-family:var(--num);font-style:normal;font-weight:700;color:var(--gold);font-size:13px;border:1px solid rgba(255,206,92,.4);border-radius:8px;padding:1px 8px;margin-top:4px}
+.tk i{font-family:var(--num);font-style:normal;font-weight:700;color:var(--gold);font-size:13px;border:1px solid rgba(255,209,102,.45);border-radius:9px;padding:1px 9px;margin-top:4px;background:rgba(255,209,102,.07)}
 .dsc{text-align:center;color:var(--mut);font-size:12px;margin-top:34px}
-/* ظهور */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
 .rv.on{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+@supports not (backdrop-filter:blur(1px)){.gl{background:rgba(20,26,48,.92)}}
 </style>
 </head>
 <body>
+<div class="blobs"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div></div>
 <div class="wrap">
 
-<div class="bar rv">
+<div class="bar gl rv">
 <span class="dot"></span><span class="sym">NASDAQ · SPCX</span>
 <span id="px">…</span><span id="vi"></span><span id="mc" class="en" style="color:var(--gold);font-weight:700"></span>
 <span id="pm" style="margin-inline-start:auto"></span>
@@ -133,27 +143,27 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <div class="hero">
 <div class="rv">
 <div class="kick">تحليل استثماري حي · يتحدث تلقائيًا</div>
-<h1>إمبراطورية<br><span class="grad">سبيس إكس</span><br>في خريطة واحدة</h1>
-<p class="lead">ثلاث شركات مدموجة بسهم واحد: صواريخ تحتكر الفضاء، إنترنت يموّل الجميع، وذكاء اصطناعي يحرق المليارات. هنا تشوف منو يربح ومنو يصرف — بأرقام حية.</p>
+<h1>إمبراطورية<br><span class="grad">سبيس إكس</span><br>خلف الزجاج</h1>
+<p class="lead">ثلاث شركات مدموجة بسهم واحد: صواريخ تحتكر الفضاء، إنترنت يموّل الجميع، وذكاء اصطناعي يحرق المليارات — بأرقام حية تتحدث لحالها.</p>
 </div>
-<div class="orbit rv">
+<div class="orbit gl rv">
 <svg viewBox="0 0 420 420">
 <circle class="ring" cx="210" cy="210" r="120"/>
-<circle class="ring ring2" cx="210" cy="210" r="180"/>
+<circle class="ring ring2" cx="210" cy="210" r="178"/>
 <g class="core">
-<circle cx="210" cy="210" r="58" fill="rgba(60,232,166,.12)" stroke="#3ce8a6" stroke-width="2"/>
-<text x="210" y="203" text-anchor="middle" fill="#eef1fb" font-size="15" font-weight="bold">📡 Starlink</text>
+<circle cx="210" cy="210" r="58" fill="rgba(60,232,166,.14)" stroke="#3ce8a6" stroke-width="2"/>
+<text x="210" y="203" text-anchor="middle" fill="#f2f4ff" font-size="15" font-weight="bold">📡 Starlink</text>
 <text x="210" y="225" text-anchor="middle" fill="#3ce8a6" font-size="12" font-weight="bold">+$4.4B ربح</text>
 </g>
 <g class="spin"><g transform="translate(210,90)">
-<circle r="34" fill="rgba(52,210,255,.10)" stroke="#34d2ff" stroke-width="1.5"/>
-<text y="-2" text-anchor="middle" fill="#eef1fb" font-size="11.5" font-weight="bold">🚀 صواريخ</text>
-<text y="13" text-anchor="middle" fill="#8b94b8" font-size="9.5">تخدم النواة</text>
+<circle r="34" fill="rgba(56,212,255,.12)" stroke="#38d4ff" stroke-width="1.5"/>
+<text y="-2" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold">🚀 صواريخ</text>
+<text y="13" text-anchor="middle" fill="#a6aecd" font-size="9.5">تخدم النواة</text>
 </g></g>
-<g class="spin2"><g transform="translate(210,390)">
-<circle r="40" fill="rgba(255,112,89,.10)" stroke="#ff7059" stroke-width="1.5"/>
-<text y="-4" text-anchor="middle" fill="#eef1fb" font-size="11.5" font-weight="bold">🤖 ذكاء اصطناعي</text>
-<text y="12" text-anchor="middle" fill="#ff7059" font-size="10" font-weight="bold">−$14B</text>
+<g class="spin2"><g transform="translate(210,388)">
+<circle r="40" fill="rgba(255,122,99,.12)" stroke="#ff7a63" stroke-width="1.5"/>
+<text y="-4" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold">🤖 ذكاء اصطناعي</text>
+<text y="12" text-anchor="middle" fill="#ff7a63" font-size="10" font-weight="bold">−$14B</text>
 </g></g>
 </svg>
 </div>
@@ -161,13 +171,13 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 
 <section class="rv">
 <div class="eyeb"><b>الأحداث المفصلية</b><span>2025 → 2026</span><div class="ln"></div></div>
-<div class="card"><div class="tl" id="tl"></div></div>
+<div class="gl pad"><div class="tl" id="tl"></div></div>
 </section>
 
 <section class="rv">
-<div class="eyeb"><b>الأقسام الثلاثة</b><span>اضغط للتفاصيل</span><div class="ln"></div></div>
+<div class="eyeb"><b>الأقسام الثلاثة</b><span>TAP TO OPEN</span><div class="ln"></div></div>
 <div class="veins">
-<div class="vein v1" onclick="this.classList.toggle('open')">
+<div class="vein gl" onclick="this.classList.toggle('open')">
 <div class="ic">🚀</div><h3>الفضاء</h3><span class="tag t1">SPACE</span>
 <p>احتكار الإطلاق بتكلفة أقل 50–70% من المنافسين — لكن بسقف فيزيائي</p>
 <table>
@@ -178,7 +188,7 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 </table>
 <div class="more">التفاصيل ▾</div>
 </div>
-<div class="vein v2" onclick="this.classList.toggle('open')">
+<div class="vein gl" onclick="this.classList.toggle('open')">
 <div class="ic">📡</div><h3>الاتصالات</h3><span class="tag t2">STARLINK</span>
 <p>مركز الربح الوحيد: 69% من الإيرادات — يدفع فواتير الجميع</p>
 <table>
@@ -189,7 +199,7 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 </table>
 <div class="more">التفاصيل ▾</div>
 </div>
-<div class="vein v3" onclick="this.classList.toggle('open')">
+<div class="vein gl" onclick="this.classList.toggle('open')">
 <div class="ic">🤖</div><h3>الذكاء الاصطناعي</h3><span class="tag t3">xAI + X</span>
 <p>ماكينة الحرق: $3.2B إيرادات مقابل $14B مصاريف — لكنه باع قصة التقييم</p>
 <table>
@@ -209,16 +219,16 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 
 <section class="rv">
 <div class="eyeb"><b>آخر الأخبار</b><span id="nsrc">AUTO</span><div class="ln"></div></div>
-<div class="card"><ul id="news"></ul></div>
+<div class="gl pad"><ul id="news"></ul></div>
 </section>
 
 <section class="rv">
 <div class="eyeb"><b>الميزان</b><span>PRO VIEW</span><div class="ln"></div></div>
 <div class="sc">
-<div class="pan pg"><h4>✅ القوة</h4><ul>
+<div class="pan gl pg"><h4>✅ القوة</h4><ul>
 <li>احتكار شبه كامل لسوق الإطلاق</li><li>نمو ~50% سنويًا للأقمار</li>
 <li>عقود البنتاغون وناسا مضمونة</li><li>~200 صندوق مؤشرات تملك السهم</li></ul></div>
-<div class="pan pb"><h4>🔴 الخطر</h4><ul>
+<div class="pan gl pb"><h4>🔴 الخطر</h4><ul>
 <li>تقييم ضخم مقابل إيرادات ~$20B</li><li>حرق مليارات على الذكاء الاصطناعي</li>
 <li>تقلب عنيف — بيتا 5.79</li><li>كل شي معلّق برجل واحد</li></ul></div>
 </div>
@@ -226,7 +236,7 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 
 <section class="rv">
 <div class="eyeb"><b>الخلاصة</b><span>4 نقاط</span><div class="ln"></div></div>
-<div class="card" id="tks"></div>
+<div class="gl pad" id="tks"></div>
 <p class="dsc">⚠️ تحليل معلوماتي فقط وليس نصيحة استثمارية · البيانات الحية من مصادر عامة</p>
 </section>
 
@@ -241,7 +251,7 @@ fetch("data.json?v="+Date.now()).then(function(r){return r.json()}).then(functio
 IPO=d.ipo_price||135;
 document.getElementById("mc").textContent=d.market_cap;
 document.getElementById("tl").innerHTML=d.timeline.map(function(t){return '<div class="ts"><div class="w">'+t.when+'</div><div class="t">'+t.what+'</div><div class="n">'+t.note+'</div></div>'}).join("");
-document.getElementById("stats").innerHTML=Object.keys(d.stats).map(function(k){return '<div class="st"><b>'+d.stats[k]+'</b><span>'+(L[k]||k)+'</span></div>'}).join("");
+document.getElementById("stats").innerHTML=Object.keys(d.stats).map(function(k){return '<div class="st gl"><b>'+d.stats[k]+'</b><span>'+(L[k]||k)+'</span></div>'}).join("");
 document.getElementById("news").innerHTML=d.news.map(function(n){return "<li>📌 "+n+"</li>"}).join("");
 document.getElementById("tks").innerHTML=d.takeaways.map(function(t,i){return '<div class="tk"><i>0'+(i+1)+'</i><div>'+t+'</div></div>'}).join("");
 sp(d.price_fallback,false);livePrice();liveNews();
