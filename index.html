@@ -17,7 +17,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--void);color:var(--ink);font-family:var(--body);line-height:1.9;overflow-x:hidden}
-/* الشفق المتحرك خلف الزجاج */
 .blobs{position:fixed;inset:-20%;z-index:-2;filter:blur(70px);opacity:.85}
 .blob{position:absolute;border-radius:50%}
 .b1{width:46vw;height:46vw;background:radial-gradient(circle,rgba(139,92,255,.55),transparent 65%);top:-6%;right:-4%;animation:f1 26s ease-in-out infinite}
@@ -31,7 +30,6 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 background-image:radial-gradient(rgba(255,255,255,.5) .6px,transparent .6px);background-size:110px 110px;opacity:.14}
 .wrap{max-width:960px;margin:0 auto;padding:0 20px 90px}
 ::selection{background:rgba(139,92,255,.45)}
-/* الزجاج الأساسي */
 .gl{background:var(--glass);
 backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);
 border:1px solid var(--edge);border-top-color:var(--edgeTop);
@@ -39,7 +37,6 @@ border-radius:22px;box-shadow:0 18px 50px rgba(0,0,0,.42),inset 0 1px 0 rgba(255
 position:relative;overflow:hidden}
 .gl::before{content:"";position:absolute;top:0;right:8%;left:38%;height:1px;
 background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent)}
-/* شريط السعر */
 .bar{position:sticky;top:12px;z-index:50;display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:11px 20px;margin-top:16px}
 .bar .sym{font-family:var(--num);font-weight:700;letter-spacing:.06em;font-size:13px;color:var(--mut)}
 .bar .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint);animation:pl 1.6s infinite}
@@ -48,7 +45,6 @@ background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent)}
 .neg{color:var(--coral)}.pos{color:var(--mint)}
 #pm,#vi{font-size:12px;color:var(--mut)}
 .en{direction:ltr;display:inline-block;font-family:var(--num)}
-/* الهيرو */
 .hero{padding:60px 0 16px;display:grid;grid-template-columns:1.08fr .92fr;gap:26px;align-items:center}
 @media(max-width:780px){.hero{grid-template-columns:1fr;text-align:center}}
 .kick{font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--a2)}
@@ -56,7 +52,6 @@ h1{font-family:var(--disp);font-weight:900;font-size:clamp(40px,7vw,66px);line-h
 h1 .grad{background:linear-gradient(92deg,var(--a2),var(--a1) 60%,#c78bff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .lead{color:var(--mut);font-size:16px;max-width:46ch;margin-top:14px}
 @media(max-width:780px){.lead{margin-inline:auto}}
-/* المدار الزجاجي */
 .orbit{position:relative;aspect-ratio:1;max-width:400px;margin-inline:auto;width:100%;padding:18px}
 .orbit svg{width:100%;height:100%;overflow:visible}
 .ring{fill:none;stroke:rgba(255,255,255,.16);stroke-width:1}
@@ -65,23 +60,20 @@ h1 .grad{background:linear-gradient(92deg,var(--a2),var(--a1) 60%,#c78bff);-webk
 .spin2{transform-origin:210px 210px;animation:orb 42s linear infinite reverse}
 @keyframes orb{to{transform:rotate(360deg)}}
 .core{filter:drop-shadow(0 0 30px rgba(60,232,166,.55))}
-/* الأقسام */
 section{margin-top:54px}
 .eyeb{display:flex;align-items:center;gap:12px;margin-bottom:14px}
 .eyeb .ln{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.22),transparent)}
 .eyeb b{font-family:var(--disp);font-weight:800;font-size:25px}
 .eyeb span{font-family:var(--num);font-size:11px;letter-spacing:.2em;color:var(--a2);font-weight:700}
 .pad{padding:24px}
-/* الأحداث */
 .tl{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
 @media(max-width:780px){.tl{grid-template-columns:repeat(2,1fr)}}
 .ts{padding:14px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--edge);border-top-color:var(--edgeTop)}
 .ts .w{font-family:var(--num);font-size:11px;color:var(--gold);letter-spacing:.08em}
 .ts .t{font-family:var(--disp);font-weight:800;font-size:16px}
 .ts .n{font-size:12.5px;color:var(--mut);line-height:1.7}
-/* الأقسام الثلاثة */
 .veins{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media(max-width:780px){.veins{grid-template-columns:1fr}}
+@media(max-width:900px){.veins{grid-template-columns:1fr}}
 .vein{padding:20px;cursor:pointer;transition:transform .28s,background .28s}
 .vein:hover{transform:translateY(-5px);background:var(--glassH)}
 .vein .ic{font-size:27px}
@@ -89,12 +81,13 @@ section{margin-top:54px}
 .tag{display:inline-block;font-family:var(--num);font-size:11px;letter-spacing:.1em;border-radius:99px;padding:2px 11px;border:1px solid;margin-top:5px;background:rgba(255,255,255,.05)}
 .t1{color:var(--a2);border-color:rgba(56,212,255,.45)}.t2{color:var(--mint);border-color:rgba(60,232,166,.45)}.t3{color:var(--coral);border-color:rgba(255,122,99,.45)}
 .vein p{font-size:13px;color:var(--mut);margin-top:9px}
-.vein table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;display:none}
-.vein.open table{display:table}
+.vein .dtl{display:none}
+.vein.open .dtl{display:block}
+.vein h5{font-family:var(--disp);font-size:14px;font-weight:800;color:var(--gold);margin-top:14px;letter-spacing:.02em}
+.vein table{width:100%;border-collapse:collapse;font-size:12.8px;margin-top:6px}
 .vein td{padding:7px 4px;border-top:1px solid var(--edge);vertical-align:top;line-height:1.7}
-.vein td:first-child{font-family:var(--num);font-size:12px;white-space:nowrap;direction:ltr;text-align:right;font-weight:700}
-.more{font-size:11.5px;color:var(--a2);margin-top:9px}
-/* الأرقام */
+.vein td:first-child{font-family:var(--num);font-size:11.5px;white-space:nowrap;direction:ltr;text-align:right;font-weight:700}
+.more{font-size:11.5px;color:var(--a2);margin-top:10px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
 @media(max-width:780px){.stats{grid-template-columns:repeat(2,1fr)}}
 .st{padding:18px 12px;text-align:center;transition:transform .28s,background .28s}
@@ -102,24 +95,19 @@ section{margin-top:54px}
 .st b{display:block;font-family:var(--num);font-size:26px;font-weight:700;direction:ltr;
 background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:text;background-clip:text;color:transparent}
 .st span{font-size:12px;color:var(--mut)}
-/* الأخبار */
 #news li{list-style:none;padding:13px 0;border-top:1px solid var(--edge);font-size:14.5px}
 #news li:first-child{border-top:none}
 #news a{color:inherit;text-decoration:none;display:block}
 #news a:hover .arb{color:var(--a2)}
 .arb{transition:color .2s;font-weight:500}
 .osrc{font-family:var(--num);font-size:11px;color:var(--mut);direction:ltr;display:block;text-align:left;margin-top:2px;opacity:.7}
-/* الميزان */
 .sc{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 @media(max-width:640px){.sc{grid-template-columns:1fr}}
 .pan{padding:18px;font-size:13.5px}
 .pan h4{font-family:var(--disp);font-weight:800;font-size:19px;margin-bottom:8px}
 .pg h4{color:var(--mint)}.pb h4{color:var(--coral)}
-.pg{box-shadow:0 18px 50px rgba(0,0,0,.42),inset 0 0 40px rgba(60,232,166,.05)}
-.pb{box-shadow:0 18px 50px rgba(0,0,0,.42),inset 0 0 40px rgba(255,122,99,.05)}
 .pan li{list-style:none;padding:5px 0;border-top:1px dashed var(--edge)}
 .pan li:first-of-type{border-top:none}
-/* الخلاصة */
 .tk{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--edge);font-size:15px}
 .tk:first-child{border-top:none}
 .tk i{font-family:var(--num);font-style:normal;font-weight:700;color:var(--gold);font-size:13px;border:1px solid rgba(255,209,102,.45);border-radius:9px;padding:1px 9px;margin-top:4px;background:rgba(255,209,102,.07)}
@@ -175,40 +163,80 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 </section>
 
 <section class="rv">
-<div class="eyeb"><b>الأقسام الثلاثة</b><span>TAP TO OPEN</span><div class="ln"></div></div>
+<div class="eyeb"><b>الأقسام الثلاثة بالتفصيل</b><span>TAP TO OPEN</span><div class="ln"></div></div>
 <div class="veins">
+
 <div class="vein gl" onclick="this.classList.toggle('open')">
-<div class="ic">🚀</div><h3>الفضاء</h3><span class="tag t1">SPACE</span>
-<p>احتكار الإطلاق بتكلفة أقل 50–70% من المنافسين — لكن بسقف فيزيائي</p>
+<div class="ic">🚀</div><h3>الفضاء</h3><span class="tag t1">SPACE · ~$5B</span>
+<p>احتكار الإطلاق العالمي بتكلفة أقل 50–70% من بلو أوريجن وأريان سبيس — بفضل إعادة استخدام الصواريخ</p>
+<div class="dtl">
+<h5>🛠️ الأسطول</h5>
 <table>
-<tr><td>Falcon 9</td><td>165 إطلاق في 2025، منها 43 فقط لعملاء خارجيين</td></tr>
-<tr><td>Dragon</td><td>نقل الرواد لمحطة الفضاء بعقود NASA</td></tr>
-<tr><td>Starship</td><td>مشروع المريخ — كل اختبار يهزّ السهم</td></tr>
-<tr><td>$5B</td><td>الإيراد المتوقع 2026</td></tr>
+<tr><td>Falcon 9</td><td>العمود الفقري: 165 إطلاق في 2025 — أكثر من كل دول العالم مجتمعة. الصاروخ الواحد يعاد استخدامه أكثر من 20 مرة</td></tr>
+<tr><td>Falcon Heavy</td><td>أقوى صاروخ تجاري عامل: للحمولات الثقيلة والأقمار العسكرية الحساسة بعقود حكومية عالية الهامش</td></tr>
+<tr><td>Dragon</td><td>المركبة الوحيدة الأمريكية لنقل الرواد لمحطة الفضاء — احتكار فعلي لعقود NASA بعد تقاعد منافسيها</td></tr>
+<tr><td>Starship</td><td>الرهان الأكبر: صاروخ عملاق كامل إعادة الاستخدام للقمر والمريخ. ما زال بالاختبارات، وأسواق التوقعات ترجح انفجار الاختبار القادم بنسبة 89% — والشركة تعتبر التفكك المخطط خطوة هندسية مقصودة</td></tr>
 </table>
-<div class="more">التفاصيل ▾</div>
+<h5>💼 اقتصاديات القسم</h5>
+<table>
+<tr><td>43/165</td><td>فقط 43 إطلاق لعملاء خارجيين يدفعون — الباقي داخلي لنشر أقمار ستارلينك (يعني القسم يخدم القسم الثاني أكثر ما يربح لنفسه)</td></tr>
+<tr><td>$5B</td><td>سقف الإيراد المتوقع 2026: منصات الإطلاق وأوقات التجهيز حدود فيزيائية ما تنضغط مهما زاد الطلب</td></tr>
+<tr><td>NASA+DoD</td><td>عقود ناسا والبنتاغون توفر دخل شبه مضمون وتمنح الشركة صفة مورّد سيادي يصعب استبداله</td></tr>
+</table>
 </div>
+<div class="more">التفاصيل الكاملة ▾</div>
+</div>
+
 <div class="vein gl" onclick="this.classList.toggle('open')">
-<div class="ic">📡</div><h3>الاتصالات</h3><span class="tag t2">STARLINK</span>
-<p>مركز الربح الوحيد: 69% من الإيرادات — يدفع فواتير الجميع</p>
+<div class="ic">📡</div><h3>الاتصالات</h3><span class="tag t2">STARLINK · $11.4B</span>
+<p>مركز الربح الوحيد: 69% من إيرادات المجموعة — القسم اللي يدفع فواتير الجميع</p>
+<div class="dtl">
+<h5>📈 مسار النمو</h5>
 <table>
-<tr><td>$11.4B</td><td>إيرادات 2025 بنمو 48% وربح $4.4B</td></tr>
-<tr><td>10.3M</td><td>مشترك في 160 دولة</td></tr>
-<tr><td>Starshield</td><td>عقود البنتاغون: أرضية مضمونة</td></tr>
-<tr><td>$81 ⚠️</td><td>إيراد المشترك نزل 18% — ضغط هوامش</td></tr>
+<tr><td>2024</td><td>إيرادات $7.7B — البداية الجدية للتربّح</td></tr>
+<tr><td>2025</td><td>قفزة لـ $11.4B بنمو 48%، وربح تشغيلي $4.4B بينما المجموعة كلها خاسرة محاسبيًا</td></tr>
+<tr><td>2026E</td><td>متوقع $15.5–20B، وحصة القسم ارتفعت من 50% إلى 69% من إيرادات المجموعة خلال سنتين</td></tr>
+<tr><td>10.3M</td><td>مشترك نشط في 160 دولة بنهاية مارس 2026 — أكثر من الضعف خلال سنة وحدة</td></tr>
 </table>
-<div class="more">التفاصيل ▾</div>
+<h5>🛰️ خطوط الأعمال</h5>
+<table>
+<tr><td>Starshield</td><td>النسخة العسكرية: عقد $537M مع وزارة الدفاع حتى 2027، والعقود الحكومية 10–15% من الإيرادات كأرضية سيادية مستقرة</td></tr>
+<tr><td>D2C</td><td>اتصال مباشر من القمر للجوال بدون أبراج: ~650 قمر مخصص، 10M مستخدم شهري، ومتوقع 25M بنهاية 2026 — يفتح سوق شركات الاتصالات كلها</td></tr>
+<tr><td>طيران/بحري</td><td>عقود مع شركات طيران وسفن شحن ويخوت — أعلى هامش لكل مشترك</td></tr>
+</table>
+<h5>⚠️ نقطة الضعف</h5>
+<table>
+<tr><td>$81</td><td>متوسط الإيراد الشهري للمشترك نزل 18% — الشركة تضحي بالسعر مقابل التوسع بالأسواق الفقيرة، وهذا ضغط قادم على الهوامش</td></tr>
+</table>
 </div>
+<div class="more">التفاصيل الكاملة ▾</div>
+</div>
+
 <div class="vein gl" onclick="this.classList.toggle('open')">
-<div class="ic">🤖</div><h3>الذكاء الاصطناعي</h3><span class="tag t3">xAI + X</span>
-<p>ماكينة الحرق: $3.2B إيرادات مقابل $14B مصاريف — لكنه باع قصة التقييم</p>
+<div class="ic">🤖</div><h3>الذكاء الاصطناعي</h3><span class="tag t3">xAI + X · −$14B</span>
+<p>ماكينة الحرق اللي باعت قصة التقييم: رفعت السقف من $800B إلى $1.75T</p>
+<div class="dtl">
+<h5>🔀 قصة الاندماج</h5>
 <table>
-<tr><td>Grok</td><td>بعيد جدًا عن التربّح</td></tr>
-<tr><td>Colossus</td><td>مراكز بيانات تلتهم الرأسمال</td></tr>
-<tr><td>Orbit-DC</td><td>حلم مراكز بيانات في الفضاء — غير مثبت</td></tr>
+<tr><td>فبراير 2026</td><td>ابتلعت المجموعة شركة xAI (ومعها منصة X) بقيمة مجمعة $1.25T — يعني مشتري السهم يشتري الثلاث شركات إجباريًا</td></tr>
+<tr><td>القصة</td><td>سرد "الحوسبة في المدار": مراكز بيانات ذكاء اصطناعي بالفضاء لتجاوز قيود الطاقة الأرضية — غير مثبت تقنيًا، لكنه اللي أقنع المستثمرين بمضاعفة التقييم</td></tr>
 </table>
-<div class="more">التفاصيل ▾</div>
+<h5>🧩 المكونات</h5>
+<table>
+<tr><td>Grok</td><td>نموذج الذكاء الاصطناعي المنافس لـ ChatGPT — مدمج بمنصة X لكنه بعيد جدًا عن التربّح</td></tr>
+<tr><td>X</td><td>تويتر سابقًا: إيرادات إعلانية متواضعة نسبةً لحجم المنصة، وتعتمد على عودة المعلنين</td></tr>
+<tr><td>Colossus</td><td>من أضخم مراكز بيانات الذكاء الاصطناعي بالعالم — يلتهم رأسمال هائل بالشرائح والطاقة</td></tr>
+</table>
+<h5>🔥 أرقام الحرق</h5>
+<table>
+<tr><td>$3.2B</td><td>إجمالي إيرادات القسم كله (غروك + إعلانات X)</td></tr>
+<tr><td>−$14B</td><td>الحرق السنوي على البنية التحتية — أكثر من 4 أضعاف الإيراد</td></tr>
+<tr><td>9 أشهر</td><td>وبأرقام أدق: حرق $9.5B في أول 9 أشهر من 2025 مقابل إيرادات $210M فقط من غروك</td></tr>
+</table>
 </div>
+<div class="more">التفاصيل الكاملة ▾</div>
+</div>
+
 </div>
 </section>
 
@@ -226,11 +254,13 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <div class="eyeb"><b>الميزان</b><span>PRO VIEW</span><div class="ln"></div></div>
 <div class="sc">
 <div class="pan gl pg"><h4>✅ القوة</h4><ul>
-<li>احتكار شبه كامل لسوق الإطلاق</li><li>نمو ~50% سنويًا للأقمار</li>
-<li>عقود البنتاغون وناسا مضمونة</li><li>~200 صندوق مؤشرات تملك السهم</li></ul></div>
+<li>احتكار شبه كامل لسوق الإطلاق الفضائي</li><li>ستارلينك ينمو ~50% سنويًا بهوامش ممتازة</li>
+<li>عقود البنتاغون وناسا = دخل شبه مضمون</li><li>~200 صندوق مؤشرات تشتري السهم هيكليًا</li>
+<li>كل نجاح لستارشب يخفض التكاليف أكثر</li></ul></div>
 <div class="pan gl pb"><h4>🔴 الخطر</h4><ul>
-<li>تقييم ضخم مقابل إيرادات ~$20B</li><li>حرق مليارات على الذكاء الاصطناعي</li>
-<li>تقلب عنيف — بيتا 5.79</li><li>كل شي معلّق برجل واحد</li></ul></div>
+<li>تقييم $1.7T+ مقابل إيرادات ~$20B — مضاعف متطرف</li><li>الذكاء الاصطناعي يحرق $14B سنويًا بدون عائد واضح</li>
+<li>تقلب عنيف: بيتا 5.79 وهبوط 30% بأول شهر</li><li>كل شي معلّق برجل واحد وصفقات أطراف ذات علاقة</li>
+<li>إيراد المشترك ينزل — ضغط أسعار قادم</li></ul></div>
 </div>
 </section>
 
@@ -245,7 +275,7 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 var IPO=135;
 var L={revenue_2025:"إجمالي إيرادات 2025",starlink_revenue_2025:"إيرادات ستارلينك",subscribers:"مشترك نشط",revenue_2026_expected:"المتوقع 2026",eps:"ربحية السهم",beta:"بيتا · التقلب",etf_holders:"صندوق مؤشرات",next_earnings:"الأرباح القادمة"};
 function px(u){return "https://api.allorigins.win/raw?url="+encodeURIComponent(u)}
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.12});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target)}})},{threshold:.1});
 document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});
 fetch("data.json?v="+Date.now()).then(function(r){return r.json()}).then(function(d){
 IPO=d.ipo_price||135;
