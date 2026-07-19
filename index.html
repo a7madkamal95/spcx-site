@@ -49,6 +49,8 @@ td:first-child{white-space:nowrap;font-weight:700;color:var(--b);direction:ltr;t
 .st span{font-size:12px;color:var(--dim)}
 #news li{list-style:none;padding:8px 0;border-top:1px dashed var(--line);font-size:14px}
 #news li:first-child{border-top:none}
+#news a{color:inherit;text-decoration:none}
+#news a:hover{color:var(--b)}
 .sc{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px}
 @media(max-width:560px){.sc{grid-template-columns:1fr}}
 .pan{border-radius:14px;padding:14px;border:1px solid;font-size:13.5px}
@@ -67,7 +69,7 @@ td:first-child{white-space:nowrap;font-weight:700;color:var(--b);direction:ltr;t
 <h1>خريطة إمبراطورية <span class="en">SpaceX</span></h1>
 <p class="dim">ثلاث شركات في سهم واحد: صواريخ، إنترنت فضائي، وذكاء اصطناعي — منو يربح ومنو يحرق؟</p>
 <div class="tick"><span class="en">NASDAQ: SPCX</span><span id="px" class="en">…</span><span id="vi" class="dim"></span><span id="mc" class="en gold"></span></div>
-<div class="dim" style="font-size:11.5px;margin-top:7px">آخر تحديث: <span id="lu" class="en">…</span> · <span id="pm"></span></div>
+<div class="dim" style="font-size:11.5px;margin-top:7px"><span id="pm">⏳ جاري جلب السعر الحي…</span></div>
 </div>
 
 <div class="card"><h2>الأحداث المفصلية</h2><div class="tl" id="tl"></div></div>
@@ -132,7 +134,7 @@ td:first-child{white-space:nowrap;font-weight:700;color:var(--b);direction:ltr;t
 </table></div></div>
 
 <div class="card"><h2>لوحة الأرقام</h2><div class="stats" id="stats"></div></div>
-<div class="card"><h2>📰 شنو الجديد؟</h2><ul id="news"></ul></div>
+<div class="card"><h2>📰 آخر الأخبار <span class="dim" style="font-size:12px" id="nsrc"></span></h2><ul id="news"></ul></div>
 
 <div class="card"><h2>⚖️ الميزان</h2><div class="sc">
 <div class="pan pg"><h4>✅ نقاط القوة</h4><ul>
@@ -148,21 +150,42 @@ td:first-child{white-space:nowrap;font-weight:700;color:var(--b);direction:ltr;t
 </div>
 
 <script>
+var IPO=135;
 var L={revenue_2025:"إجمالي إيرادات 2025",starlink_revenue_2025:"إيرادات ستارلينك 2025",subscribers:"مشترك نشط",revenue_2026_expected:"الإيراد المتوقع 2026",eps:"ربحية السهم",beta:"بيتا — التقلب",etf_holders:"صندوق مؤشرات يملك السهم",next_earnings:"إعلان الأرباح القادم"};
+function px(url){return "https://api.allorigins.win/raw?url="+encodeURIComponent(url)}
 fetch("data.json?v="+Date.now()).then(function(r){return r.json()}).then(function(d){
-document.getElementById("lu").textContent=d.last_updated;
+IPO=d.ipo_price||135;
 document.getElementById("mc").textContent=d.market_cap;
 document.getElementById("tl").innerHTML=d.timeline.map(function(t){return '<div class="ts"><div class="w">'+t.when+'</div><div class="t">'+t.what+'</div><div class="n">'+t.note+'</div></div>'}).join("");
 document.getElementById("stats").innerHTML=Object.keys(d.stats).map(function(k){return '<div class="st"><b>'+d.stats[k]+'</b><span>'+(L[k]||k)+'</span></div>'}).join("");
 document.getElementById("news").innerHTML=d.news.map(function(n){return "<li>📌 "+n+"</li>"}).join("");
 document.getElementById("tks").innerHTML=d.takeaways.map(function(t,i){return '<div class="tk"><b class="gold">'+(i+1)+'.</b> '+t+'</div>'}).join("");
-sp(d.price_fallback,d.ipo_price,false);
-if(d.finnhub_api_key){fetch("https://finnhub.io/api/v1/quote?symbol=SPCX&token="+d.finnhub_api_key).then(function(r){return r.json()}).then(function(q){if(q&&q.c>0)sp(q.c,d.ipo_price,true)}).catch(function(){})}
-}).catch(function(){document.getElementById("px").textContent="تعذر التحميل"});
-function sp(p,ipo,live){var e=document.getElementById("px"),b=p<ipo;
+sp(d.price_fallback,false);
+livePrice();liveNews();
+}).catch(function(){document.getElementById("px").textContent="—";livePrice();liveNews()});
+function livePrice(){
+fetch(px("https://query1.finance.yahoo.com/v8/finance/chart/SPCX?interval=1d&range=1d")).then(function(r){return r.json()}).then(function(y){
+var m=y.chart.result[0].meta,p=m.regularMarketPrice;
+if(p>0){sp(p,true);
+var pc=m.chartPreviousClose||m.previousClose;
+if(pc){var ch=((p-pc)/pc*100).toFixed(2);
+document.getElementById("pm").textContent="🟢 سعر حي تلقائي · تغير اليوم: "+(ch>0?"+":"")+ch+"%"}}
+}).catch(function(){document.getElementById("pm").textContent="⚪ آخر سعر محفوظ (تعذر الجلب الحي مؤقتًا)"})}
+function liveNews(){
+fetch(px("https://feeds.finance.yahoo.com/rss/2.0/headline?s=SPCX&region=US&lang=en-US")).then(function(r){return r.text()}).then(function(t){
+var doc=new DOMParser().parseFromString(t,"text/xml");
+var items=Array.prototype.slice.call(doc.querySelectorAll("item"),0,6);
+if(items.length){
+document.getElementById("nsrc").textContent="(تلقائية ومباشرة)";
+document.getElementById("news").innerHTML=items.map(function(i){
+var ti=i.querySelector("title"),li=i.querySelector("link");
+return '<li dir="ltr" style="text-align:left">📌 <a href="'+(li?li.textContent:"#")+'" target="_blank">'+(ti?ti.textContent:"")+'</a></li>'}).join("")}
+}).catch(function(){})}
+function sp(p,live){var e=document.getElementById("px"),b=p<IPO;
 e.textContent="$"+(+p).toFixed(2)+(b?" ▼":" ▲");e.className="en "+(b?"neg":"pos");
-document.getElementById("vi").textContent=(b?"تحت":"فوق")+" سعر الاكتتاب $"+ipo;
-document.getElementById("pm").textContent=live?"🟢 السعر حي":"⚪ آخر سعر محفوظ"}
+document.getElementById("vi").textContent=(b?"تحت":"فوق")+" سعر الاكتتاب $"+IPO;
+if(!live)document.getElementById("pm").textContent="⏳ جاري جلب السعر الحي…"}
+setInterval(livePrice,60000);
 </script>
 </body>
 </html>
