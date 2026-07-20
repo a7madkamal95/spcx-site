@@ -8,58 +8,64 @@
 <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
---void:#06070f;--ink:#f2f4ff;--mut:#a6aecd;
---a1:#8b5cff;--a2:#38d4ff;--mint:#3ce8a6;--coral:#ff7a63;--gold:#ffd166;
---glass:rgba(255,255,255,.055);--glassH:rgba(255,255,255,.10);
---edge:rgba(255,255,255,.14);--edgeTop:rgba(255,255,255,.32);
+--void:#05060d;--ink:#f5f7ff;--mut:#b7bfdd;
+--a1:#8b5cff;--a2:#38d4ff;--mint:#3ce8a6;--coral:#ff8a72;--gold:#ffd166;
+--glass:rgba(255,255,255,.055);--glassH:rgba(255,255,255,.11);
+--edge:rgba(255,255,255,.15);--edgeTop:rgba(255,255,255,.34);
+--focus:#38d4ff;
 --disp:'Zain',sans-serif;--body:'IBM Plex Sans Arabic',Tahoma,sans-serif;--num:'Space Grotesk',monospace;
+--sp1:4px;--sp2:8px;--sp3:12px;--sp4:16px;--sp5:24px;--sp6:32px;--sp7:48px;--sp8:64px;
+--r16:16px;--r20:20px;--r24:24px;--r99:999px;
+--dur-fast:150ms;--dur-med:220ms;--dur-slow:320ms;--ease:cubic-bezier(.22,1,.36,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 html[data-lang=en]{--disp:'Space Grotesk',sans-serif;--body:'Space Grotesk','Segoe UI',sans-serif}
 html[data-lang=ar] .i-en{display:none!important}
 html[data-lang=en] .i-ar{display:none!important}
-body{background:var(--void);color:var(--ink);font-family:var(--body);line-height:1.9;overflow-x:hidden}
+body{background:var(--void);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;overflow-x:hidden}
+:focus-visible{outline:2.5px solid var(--focus);outline-offset:3px;border-radius:6px}
 .blobs{position:fixed;inset:-20%;z-index:-2;filter:blur(70px);opacity:.85}
 .blob{position:absolute;border-radius:50%}
 .b1{width:46vw;height:46vw;background:radial-gradient(circle,rgba(139,92,255,.55),transparent 65%);top:-6%;right:-4%;animation:f1 26s ease-in-out infinite}
 .b2{width:40vw;height:40vw;background:radial-gradient(circle,rgba(56,212,255,.45),transparent 65%);top:28%;left:-8%;animation:f2 32s ease-in-out infinite}
 .b3{width:36vw;height:36vw;background:radial-gradient(circle,rgba(60,232,166,.30),transparent 65%);bottom:-10%;right:22%;animation:f3 38s ease-in-out infinite}
-.b4{width:28vw;height:28vw;background:radial-gradient(circle,rgba(255,122,99,.25),transparent 65%);top:55%;right:-6%;animation:f2 44s ease-in-out infinite reverse}
+.b4{width:28vw;height:28vw;background:radial-gradient(circle,rgba(255,138,114,.25),transparent 65%);top:55%;right:-6%;animation:f2 44s ease-in-out infinite reverse}
 @keyframes f1{50%{transform:translate(-8vw,10vh) scale(1.15)}}
 @keyframes f2{50%{transform:translate(9vw,-8vh) scale(1.1)}}
 @keyframes f3{50%{transform:translate(-6vw,-9vh) scale(1.2)}}
 body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
 background-image:radial-gradient(rgba(255,255,255,.5) .6px,transparent .6px);background-size:110px 110px;opacity:.14}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px 90px}
+.wrap{max-width:960px;margin:0 auto;padding:0 var(--sp5) 90px}
 ::selection{background:rgba(139,92,255,.45)}
 .gl{background:var(--glass);
 backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);
 border:1px solid var(--edge);border-top-color:var(--edgeTop);
-border-radius:22px;box-shadow:0 18px 50px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08);
+border-radius:var(--r24);box-shadow:0 18px 50px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.08);
 position:relative;overflow:hidden}
 .gl::before{content:"";position:absolute;top:0;right:8%;left:38%;height:1px;
 background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent)}
-.bar{position:sticky;top:12px;z-index:50;display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:11px 20px;margin-top:16px}
+.bar{position:sticky;top:var(--sp3);z-index:50;display:flex;gap:var(--sp4);align-items:center;flex-wrap:wrap;padding:var(--sp3) var(--sp5);margin-top:var(--sp4)}
 .bar .sym{font-family:var(--num);font-weight:700;letter-spacing:.06em;font-size:13px;color:var(--mut)}
 .bar .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint);animation:pl 1.6s infinite}
-@keyframes pl{50%{opacity:.3}}
+@keyframes pl{50%{opacity:.35}}
 #px{font-family:var(--num);font-weight:700;font-size:23px;direction:ltr}
 .neg{color:var(--coral)}.pos{color:var(--mint)}
-#pm,#vi{font-size:12px;color:var(--mut)}
+#pm,#vi{font-size:13px;color:var(--mut)}
 .en{direction:ltr;display:inline-block;font-family:var(--num)}
-.lng{margin-inline-start:auto;font-family:var(--num);font-weight:700;font-size:12.5px;letter-spacing:.08em;
-color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--edgeTop);border-radius:99px;
-padding:5px 16px;cursor:pointer;transition:background .2s,transform .2s}
-.lng:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
-.hero{padding:56px 0 16px;display:grid;grid-template-columns:1.08fr .92fr;gap:26px;align-items:center}
+.lng{margin-inline-start:auto;font-family:var(--num);font-weight:700;font-size:13px;letter-spacing:.08em;
+color:var(--ink);background:rgba(255,255,255,.09);border:1px solid var(--edgeTop);border-radius:var(--r99);
+padding:9px 18px;min-height:38px;cursor:pointer;transition:background var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease)}
+.lng:hover{background:rgba(255,255,255,.17);transform:translateY(-1px)}
+.lng:active{transform:translateY(0)}
+.hero{padding:56px 0 var(--sp4);display:grid;grid-template-columns:1.08fr .92fr;gap:var(--sp6);align-items:center}
 @media(max-width:780px){.hero{grid-template-columns:1fr;text-align:center}}
 .kick{font-size:13px;font-weight:700;letter-spacing:.22em;color:var(--a2)}
-h1{font-family:var(--disp);font-weight:900;font-size:clamp(38px,6.6vw,62px);line-height:1.12;margin-top:8px}
+h1{font-family:var(--disp);font-weight:900;font-size:clamp(38px,6.6vw,62px);line-height:1.14;margin-top:var(--sp2)}
 h1 .grad{background:linear-gradient(92deg,var(--a2),var(--a1) 60%,#c78bff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.lead{color:var(--mut);font-size:16px;max-width:48ch;margin-top:14px}
+.lead{color:var(--mut);font-size:17px;line-height:1.75;max-width:48ch;margin-top:var(--sp4)}
 @media(max-width:780px){.lead{margin-inline:auto}}
-.orbit{position:relative;aspect-ratio:1;max-width:400px;margin-inline:auto;width:100%;padding:18px}
+.orbit{position:relative;aspect-ratio:1;max-width:400px;margin-inline:auto;width:100%;padding:var(--sp4)}
 .orbit svg{width:100%;height:100%;overflow:visible}
 .ring{fill:none;stroke:rgba(255,255,255,.16);stroke-width:1}
 .ring2{stroke-dasharray:3 8}
@@ -67,67 +73,70 @@ h1 .grad{background:linear-gradient(92deg,var(--a2),var(--a1) 60%,#c78bff);-webk
 .spin2{transform-origin:210px 210px;animation:orb 42s linear infinite reverse}
 @keyframes orb{to{transform:rotate(360deg)}}
 .core{filter:drop-shadow(0 0 30px rgba(60,232,166,.55))}
-section{margin-top:54px}
-.eyeb{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+section{margin-top:var(--sp8)}
+.eyeb{display:flex;align-items:center;gap:var(--sp3);margin-bottom:var(--sp4)}
 .eyeb .ln{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.22),transparent)}
-.eyeb b{font-family:var(--disp);font-weight:800;font-size:25px}
+.eyeb b{font-family:var(--disp);font-weight:800;font-size:26px;letter-spacing:.01em}
 .eyeb span{font-family:var(--num);font-size:11px;letter-spacing:.2em;color:var(--a2);font-weight:700}
-.pad{padding:24px}
-.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.pad{padding:var(--sp6)}
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp3)}
 @media(max-width:780px){.tl{grid-template-columns:repeat(2,1fr)}}
-.ts{padding:14px;border-radius:16px;background:rgba(255,255,255,.045);border:1px solid var(--edge);border-top-color:var(--edgeTop)}
-.ts .w{font-family:var(--num);font-size:11px;color:var(--gold);letter-spacing:.08em}
-.ts .t{font-family:var(--disp);font-weight:800;font-size:16px}
-.ts .n{font-size:12.5px;color:var(--mut);line-height:1.7}
-.veins{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.ts{padding:var(--sp4);border-radius:var(--r16);background:rgba(255,255,255,.045);border:1px solid var(--edge);border-top-color:var(--edgeTop)}
+.ts .w{font-family:var(--num);font-size:11px;color:var(--gold);letter-spacing:.08em;font-weight:700}
+.ts .t{font-family:var(--disp);font-weight:800;font-size:17px;margin-top:2px}
+.ts .n{font-size:13px;color:var(--mut);line-height:1.7;margin-top:4px}
+.veins{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp4)}
 @media(max-width:900px){.veins{grid-template-columns:1fr}}
-.vein{padding:20px;cursor:pointer;transition:transform .28s,background .28s}
+.vein{padding:var(--sp5);cursor:pointer;transition:transform var(--dur-med) var(--ease),background var(--dur-med) var(--ease)}
 .vein:hover{transform:translateY(-5px);background:var(--glassH)}
-.vein .ic{font-size:27px}
-.vein h3{font-family:var(--disp);font-weight:800;font-size:21px;margin-top:6px}
-.tag{display:inline-block;font-family:var(--num);font-size:11px;letter-spacing:.1em;border-radius:99px;padding:2px 11px;border:1px solid;margin-top:5px;background:rgba(255,255,255,.05)}
-.t1{color:var(--a2);border-color:rgba(56,212,255,.45)}.t2{color:var(--mint);border-color:rgba(60,232,166,.45)}.t3{color:var(--coral);border-color:rgba(255,122,99,.45)}
-.vein p{font-size:13px;color:var(--mut);margin-top:9px}
+.vein .icwrap{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);border:1px solid var(--edge)}
+.vein .icwrap svg{width:24px;height:24px}
+.vein h3{font-family:var(--disp);font-weight:800;font-size:21px;margin-top:var(--sp3)}
+.tag{display:inline-block;font-family:var(--num);font-size:11px;letter-spacing:.1em;border-radius:var(--r99);padding:3px 12px;border:1px solid;margin-top:var(--sp2);background:rgba(255,255,255,.05)}
+.t1{color:var(--a2);border-color:rgba(56,212,255,.5)}.t2{color:var(--mint);border-color:rgba(60,232,166,.5)}.t3{color:var(--coral);border-color:rgba(255,138,114,.5)}
+.vein p{font-size:13.5px;color:var(--mut);margin-top:var(--sp3);line-height:1.7}
 .vein .dtl{display:none}
 .vein.open .dtl{display:block}
-.vein h5{font-family:var(--disp);font-size:14px;font-weight:800;color:var(--gold);margin-top:14px;letter-spacing:.02em}
-.vein table{width:100%;border-collapse:collapse;font-size:12.8px;margin-top:6px}
-.vein td{padding:7px 4px;border-top:1px solid var(--edge);vertical-align:top;line-height:1.7}
-.vein td:first-child{font-family:var(--num);font-size:11.5px;white-space:nowrap;direction:ltr;font-weight:700}
+.vein h5{font-family:var(--disp);font-size:14px;font-weight:800;color:var(--gold);margin-top:var(--sp4);letter-spacing:.02em}
+.vein table{width:100%;border-collapse:collapse;font-size:13px;margin-top:var(--sp2)}
+.vein td{padding:8px 4px;border-top:1px solid var(--edge);vertical-align:top;line-height:1.7}
+.vein td:first-child{font-family:var(--num);font-size:11.5px;white-space:nowrap;direction:ltr;font-weight:700;color:var(--a2)}
 html[data-lang=ar] .vein td:first-child{text-align:right}
 html[data-lang=en] .vein td:first-child{text-align:left;padding-inline-end:10px}
-.more{font-size:11.5px;color:var(--a2);margin-top:10px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.more{font-size:12px;color:var(--a2);margin-top:var(--sp3);font-weight:700;display:flex;align-items:center;gap:4px}
+.more svg{width:13px;height:13px;transition:transform var(--dur-med) var(--ease)}
+.vein.open .more svg{transform:rotate(180deg)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp3)}
 @media(max-width:780px){.stats{grid-template-columns:repeat(2,1fr)}}
-.st{padding:18px 12px;text-align:center;transition:transform .28s,background .28s}
+.st{padding:var(--sp5) var(--sp3);text-align:center;transition:transform var(--dur-med) var(--ease),background var(--dur-med) var(--ease)}
 .st:hover{transform:translateY(-4px);background:var(--glassH)}
-.st b{display:block;font-family:var(--num);font-size:26px;font-weight:700;direction:ltr;
+.st b{display:block;font-family:var(--num);font-size:27px;font-weight:700;direction:ltr;
 background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:text;background-clip:text;color:transparent}
-.st span{font-size:12px;color:var(--mut)}
-#news li{list-style:none;padding:13px 0;border-top:1px solid var(--edge);font-size:14.5px}
+.st span{font-size:12.5px;color:var(--mut)}
+#news li{list-style:none;padding:var(--sp4) 0;border-top:1px solid var(--edge);font-size:15px}
 #news li:first-child{border-top:none}
-#news a{color:inherit;text-decoration:none;display:block}
+#news a{color:inherit;text-decoration:none;display:block;border-radius:10px}
 #news a:hover .arb{color:var(--a2)}
-.arb{transition:color .2s;font-weight:500}
-.osrc{font-family:var(--num);font-size:11px;color:var(--mut);direction:ltr;display:block;text-align:left;margin-top:2px;opacity:.7}
-.nmeta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:5px}
-.src{font-family:var(--num);font-size:10.5px;letter-spacing:.05em;color:var(--a2);border:1px solid rgba(56,212,255,.4);border-radius:99px;padding:1px 10px;background:rgba(56,212,255,.08);direction:ltr}
-.ndate{font-size:11px;color:var(--mut)}
-.sc{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.arb{transition:color var(--dur-fast) var(--ease);font-weight:500;line-height:1.6}
+.osrc{font-family:var(--num);font-size:11px;color:var(--mut);direction:ltr;display:block;text-align:left;margin-top:3px;opacity:.75}
+.nmeta{display:flex;gap:var(--sp2);align-items:center;flex-wrap:wrap;margin-top:var(--sp2)}
+.src{font-family:var(--num);font-size:10.5px;letter-spacing:.05em;color:var(--a2);border:1px solid rgba(56,212,255,.4);border-radius:var(--r99);padding:2px 11px;background:rgba(56,212,255,.08);direction:ltr}
+.ndate{font-size:11.5px;color:var(--mut)}
+.sc{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp4)}
 @media(max-width:640px){.sc{grid-template-columns:1fr}}
-.pan{padding:18px;font-size:13.5px}
-.pan h4{font-family:var(--disp);font-weight:800;font-size:19px;margin-bottom:8px}
+.pan{padding:var(--sp5);font-size:13.5px}
+.pan h4{font-family:var(--disp);font-weight:800;font-size:19px;margin-bottom:var(--sp3);display:flex;align-items:center;gap:8px}
 .pg h4{color:var(--mint)}.pb h4{color:var(--coral)}
-.pan li{list-style:none;padding:5px 0;border-top:1px dashed var(--edge)}
+.pan li{list-style:none;padding:6px 0;border-top:1px dashed var(--edge);line-height:1.7}
 .pan li:first-of-type{border-top:none}
-.tk{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--edge);font-size:15px}
+.tk{display:flex;gap:var(--sp3);align-items:flex-start;padding:var(--sp3) 0;border-top:1px solid var(--edge);font-size:15.5px;line-height:1.7}
 .tk:first-child{border-top:none}
-.tk i{font-family:var(--num);font-style:normal;font-weight:700;color:var(--gold);font-size:13px;border:1px solid rgba(255,209,102,.45);border-radius:9px;padding:1px 9px;margin-top:4px;background:rgba(255,209,102,.07)}
-.dsc{text-align:center;color:var(--mut);font-size:12px;margin-top:34px}
-.rv{opacity:0;transform:translateY(22px);transition:opacity .7s,transform .7s}
+.tk i{font-family:var(--num);font-style:normal;font-weight:700;color:var(--gold);font-size:13px;border:1px solid rgba(255,209,102,.45);border-radius:9px;padding:2px 9px;margin-top:3px;background:rgba(255,209,102,.07);flex-shrink:0}
+.dsc{text-align:center;color:var(--mut);font-size:12.5px;margin-top:var(--sp7);line-height:1.7}
+.rv{opacity:0;transform:translateY(22px);transition:opacity var(--dur-slow) var(--ease),transform var(--dur-slow) var(--ease)}
 .rv.on{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
-@supports not (backdrop-filter:blur(1px)){.gl{background:rgba(20,26,48,.92)}}
+@supports not (backdrop-filter:blur(1px)){.gl{background:rgba(18,22,42,.94)}}
 </style>
 </head>
 <body>
@@ -135,10 +144,10 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <div class="wrap">
 
 <div class="bar gl rv">
-<span class="dot"></span><span class="sym">NASDAQ · SPCX</span>
+<span class="dot" aria-hidden="true"></span><span class="sym">NASDAQ · SPCX</span>
 <span id="px">…</span><span id="vi"></span><span id="mc" class="en" style="color:var(--gold);font-weight:700"></span>
 <span id="pm"></span>
-<button class="lng" id="lngBtn" onclick="setLang(CUR==='ar'?'en':'ar')">EN</button>
+<button class="lng" id="lngBtn" onclick="setLang(CUR==='ar'?'en':'ar')" aria-label="Switch language">EN</button>
 </div>
 
 <div class="hero">
@@ -148,27 +157,27 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <p class="lead"><span class="i-ar">ثلاث شركات مدموجة بسهم واحد: صواريخ تحتكر الفضاء، إنترنت يموّل الجميع، وذكاء اصطناعي يحرق المليارات — بأرقام حية تتحدث لحالها.</span><span class="i-en">Three companies fused into one stock: rockets that monopolize launch, an internet business that funds everyone, and an AI unit burning billions — with live numbers that update themselves.</span></p>
 </div>
 <div class="orbit gl rv">
-<svg viewBox="0 0 420 420">
+<svg viewBox="0 0 420 420" role="img" aria-label="Orbital diagram of SpaceX divisions">
 <circle class="ring" cx="210" cy="210" r="120"/>
 <circle class="ring ring2" cx="210" cy="210" r="178"/>
 <g class="core">
 <circle cx="210" cy="210" r="58" fill="rgba(60,232,166,.14)" stroke="#3ce8a6" stroke-width="2"/>
-<text x="210" y="203" text-anchor="middle" fill="#f2f4ff" font-size="15" font-weight="bold">📡 Starlink</text>
+<text x="210" y="203" text-anchor="middle" fill="#f5f7ff" font-size="15" font-weight="bold">📡 Starlink</text>
 <text x="210" y="225" text-anchor="middle" fill="#3ce8a6" font-size="12" font-weight="bold" class="i-ar">+$4.4B ربح</text>
 <text x="210" y="225" text-anchor="middle" fill="#3ce8a6" font-size="12" font-weight="bold" class="i-en">+$4.4B profit</text>
 </g>
 <g class="spin"><g transform="translate(210,90)">
 <circle r="34" fill="rgba(56,212,255,.12)" stroke="#38d4ff" stroke-width="1.5"/>
-<text y="-2" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold" class="i-ar">🚀 صواريخ</text>
-<text y="-2" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold" class="i-en">🚀 Rockets</text>
-<text y="13" text-anchor="middle" fill="#a6aecd" font-size="9.5" class="i-ar">تخدم النواة</text>
-<text y="13" text-anchor="middle" fill="#a6aecd" font-size="9.5" class="i-en">serve the core</text>
+<text y="-2" text-anchor="middle" fill="#f5f7ff" font-size="11.5" font-weight="bold" class="i-ar">🚀 صواريخ</text>
+<text y="-2" text-anchor="middle" fill="#f5f7ff" font-size="11.5" font-weight="bold" class="i-en">🚀 Rockets</text>
+<text y="13" text-anchor="middle" fill="#b7bfdd" font-size="9.5" class="i-ar">تخدم النواة</text>
+<text y="13" text-anchor="middle" fill="#b7bfdd" font-size="9.5" class="i-en">serve the core</text>
 </g></g>
 <g class="spin2"><g transform="translate(210,388)">
-<circle r="40" fill="rgba(255,122,99,.12)" stroke="#ff7a63" stroke-width="1.5"/>
-<text y="-4" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold" class="i-ar">🤖 ذكاء اصطناعي</text>
-<text y="-4" text-anchor="middle" fill="#f2f4ff" font-size="11.5" font-weight="bold" class="i-en">🤖 AI</text>
-<text y="12" text-anchor="middle" fill="#ff7a63" font-size="10" font-weight="bold">−$14B</text>
+<circle r="40" fill="rgba(255,138,114,.12)" stroke="#ff8a72" stroke-width="1.5"/>
+<text y="-4" text-anchor="middle" fill="#f5f7ff" font-size="11.5" font-weight="bold" class="i-ar">🤖 ذكاء اصطناعي</text>
+<text y="-4" text-anchor="middle" fill="#f5f7ff" font-size="11.5" font-weight="bold" class="i-en">🤖 AI</text>
+<text y="12" text-anchor="middle" fill="#ff8a72" font-size="10" font-weight="bold">−$14B</text>
 </g></g>
 </svg>
 </div>
@@ -183,11 +192,12 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <div class="eyeb"><b><span class="i-ar">الأقسام الثلاثة بالتفصيل</span><span class="i-en">The Three Divisions, In Depth</span></b><span class="i-ar">اضغط للفتح</span><span class="i-en">TAP TO OPEN</span><div class="ln"></div></div>
 <div class="veins">
 
-<div class="vein gl" onclick="this.classList.toggle('open')">
-<div class="ic">🚀</div><h3><span class="i-ar">الفضاء</span><span class="i-en">Space</span></h3><span class="tag t1">SPACE · ~$5B</span>
+<div class="vein gl" tabindex="0" role="button" aria-expanded="false" onclick="toggleVein(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVein(this)}">
+<div class="icwrap"><svg viewBox="0 0 24 24" fill="none" stroke="#38d4ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c2 2 3.5 5 3.5 9 0 2-.5 4-1.5 6l-2 3-2-3c-1-2-1.5-4-1.5-6 0-4 1.5-7 3.5-9z"/><path d="M9 15l-3 2v3l3-1.5"/><path d="M15 15l3 2v3l-3-1.5"/><circle cx="12" cy="9" r="1.6"/></svg></div>
+<h3><span class="i-ar">الفضاء</span><span class="i-en">Space</span></h3><span class="tag t1">SPACE · ~$5B</span>
 <p><span class="i-ar">احتكار الإطلاق العالمي بتكلفة أقل 50–70% من بلو أوريجن وأريان سبيس</span><span class="i-en">A global launch monopoly at 50–70% lower cost than Blue Origin and Arianespace</span></p>
 <div class="dtl">
-<h5><span class="i-ar">🛠️ الأسطول والتقنية</span><span class="i-en">🛠️ Fleet & Technology</span></h5>
+<h5><span class="i-ar">الأسطول والتقنية</span><span class="i-en">Fleet & Technology</span></h5>
 <table>
 <tr><td>Falcon 9</td><td><span class="i-ar">العمود الفقري: 165 إطلاق في 2025، والصاروخ الواحد يعاد استخدامه +20 مرة</span><span class="i-en">The backbone: 165 launches in 2025; each booster reflies 20+ times</span></td></tr>
 <tr><td>Falcon Heavy</td><td><span class="i-ar">أقوى صاروخ تجاري عامل للحمولات الثقيلة والعقود العسكرية</span><span class="i-en">The most powerful operational commercial rocket for heavy payloads and military missions</span></td></tr>
@@ -195,7 +205,7 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <tr><td>Merlin/Raptor</td><td><span class="i-ar">محركات مطورة داخليًا: ميرلين للفالكون، ورابتور الميثاني للستارشب</span><span class="i-en">In-house engines: Merlin for Falcon, methane Raptor for Starship</span></td></tr>
 <tr><td>Starship</td><td><span class="i-ar">الرهان الأكبر للقمر والمريخ — أسواق التوقعات ترجح انفجار الاختبار القادم بنسبة 89%</span><span class="i-en">The big bet for Moon and Mars — prediction markets put 89% odds the next test explodes</span></td></tr>
 </table>
-<h5><span class="i-ar">🗺️ القواعد والعقود</span><span class="i-en">🗺️ Sites & Contracts</span></h5>
+<h5><span class="i-ar">القواعد والعقود</span><span class="i-en">Sites & Contracts</span></h5>
 <table>
 <tr><td>3 Sites</td><td><span class="i-ar">ستاربيس تكساس، كيب كانافيرال فلوريدا، فاندنبرغ كاليفورنيا</span><span class="i-en">Starbase, Cape Canaveral, and Vandenberg</span></td></tr>
 <tr><td>HLS</td><td><span class="i-ar">عقد ناسا لهبوط رواد أرتيمس على سطح القمر</span><span class="i-en">NASA contract to land Artemis astronauts on the Moon</span></td></tr>
@@ -203,21 +213,22 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <tr><td>$5B</td><td><span class="i-ar">سقف الإيراد 2026 بسبب حدود منصات الإطلاق الفيزيائية</span><span class="i-en">The 2026 revenue ceiling due to physical pad limits</span></td></tr>
 </table>
 </div>
-<div class="more"><span class="i-ar">التفاصيل الكاملة ▾</span><span class="i-en">Full details ▾</span></div>
+<div class="more"><span class="i-ar">التفاصيل الكاملة</span><span class="i-en">Full details</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
 </div>
 
-<div class="vein gl" onclick="this.classList.toggle('open')">
-<div class="ic">📡</div><h3><span class="i-ar">الاتصالات</span><span class="i-en">Connectivity</span></h3><span class="tag t2">STARLINK · $11.4B</span>
+<div class="vein gl" tabindex="0" role="button" aria-expanded="false" onclick="toggleVein(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVein(this)}">
+<div class="icwrap"><svg viewBox="0 0 24 24" fill="none" stroke="#3ce8a6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/><path d="M8.5 15.5a5 5 0 017 0"/><path d="M5.5 12.5a9 9 0 0113 0"/><path d="M3 9a13 13 0 0118 0"/></svg></div>
+<h3><span class="i-ar">الاتصالات</span><span class="i-en">Connectivity</span></h3><span class="tag t2">STARLINK · $11.4B</span>
 <p><span class="i-ar">مركز الربح الوحيد: 69% من إيرادات المجموعة</span><span class="i-en">The only profit center: 69% of group revenue</span></p>
 <div class="dtl">
-<h5><span class="i-ar">📈 مسار النمو</span><span class="i-en">📈 Growth Path</span></h5>
+<h5><span class="i-ar">مسار النمو</span><span class="i-en">Growth Path</span></h5>
 <table>
 <tr><td>2024</td><td><span class="i-ar">إيرادات $7.7B</span><span class="i-en">$7.7B revenue</span></td></tr>
 <tr><td>2025</td><td><span class="i-ar">قفزة لـ $11.4B بنمو 48% وربح تشغيلي $4.4B</span><span class="i-en">Jump to $11.4B (+48%) with $4.4B operating profit</span></td></tr>
 <tr><td>2026E</td><td><span class="i-ar">متوقع $15.5–20B</span><span class="i-en">$15.5–20B expected</span></td></tr>
 <tr><td>10.3M</td><td><span class="i-ar">مشترك نشط في 160 دولة</span><span class="i-en">Active subscribers in 160 countries</span></td></tr>
 </table>
-<h5><span class="i-ar">🛰️ التقنية وخطوط الأعمال</span><span class="i-en">🛰️ Tech & Business Lines</span></h5>
+<h5><span class="i-ar">التقنية وخطوط الأعمال</span><span class="i-en">Tech & Business Lines</span></h5>
 <table>
 <tr><td>Constellation</td><td><span class="i-ar">أكبر كوكبة أقمار بالتاريخ</span><span class="i-en">The largest satellite constellation in history</span></td></tr>
 <tr><td>Laser</td><td><span class="i-ar">روابط ليزر بين الأقمار تنقل البيانات مباشرة بالفضاء</span><span class="i-en">Inter-satellite laser links move data in space itself</span></td></tr>
@@ -225,37 +236,38 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <tr><td>Starshield</td><td><span class="i-ar">عقد $537M مع وزارة الدفاع حتى 2027</span><span class="i-en">A $537M DoD contract through 2027</span></td></tr>
 <tr><td>D2C</td><td><span class="i-ar">اتصال مباشر من القمر للجوال: ~650 قمر و10M مستخدم شهري</span><span class="i-en">Direct-to-Cell: ~650 satellites, 10M monthly users</span></td></tr>
 </table>
-<h5><span class="i-ar">⚠️ نقطة الضعف</span><span class="i-en">⚠️ The Weak Spot</span></h5>
+<h5><span class="i-ar">نقطة الضعف</span><span class="i-en">The Weak Spot</span></h5>
 <table>
 <tr><td>$81</td><td><span class="i-ar">متوسط الإيراد الشهري للمشترك نزل 18%</span><span class="i-en">ARPU fell 18% to $81</span></td></tr>
 </table>
 </div>
-<div class="more"><span class="i-ar">التفاصيل الكاملة ▾</span><span class="i-en">Full details ▾</span></div>
+<div class="more"><span class="i-ar">التفاصيل الكاملة</span><span class="i-en">Full details</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
 </div>
 
-<div class="vein gl" onclick="this.classList.toggle('open')">
-<div class="ic">🤖</div><h3><span class="i-ar">الذكاء الاصطناعي</span><span class="i-en">Artificial Intelligence</span></h3><span class="tag t3">xAI + X · −$14B</span>
+<div class="vein gl" tabindex="0" role="button" aria-expanded="false" onclick="toggleVein(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleVein(this)}">
+<div class="icwrap"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8a72" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></svg></div>
+<h3><span class="i-ar">الذكاء الاصطناعي</span><span class="i-en">Artificial Intelligence</span></h3><span class="tag t3">xAI + X · −$14B</span>
 <p><span class="i-ar">ماكينة الحرق اللي رفعت التقييم من $800B إلى $1.75T</span><span class="i-en">The burn machine that lifted valuation from $800B to $1.75T</span></p>
 <div class="dtl">
-<h5><span class="i-ar">🔀 قصة الاندماج</span><span class="i-en">🔀 The Merger Story</span></h5>
+<h5><span class="i-ar">قصة الاندماج</span><span class="i-en">The Merger Story</span></h5>
 <table>
 <tr><td><span class="en">Feb 2026</span></td><td><span class="i-ar">ابتلعت المجموعة xAI ومعها X بقيمة مجمعة $1.25T</span><span class="i-en">The group absorbed xAI (and X) at a combined $1.25T</span></td></tr>
 <tr><td><span class="en">Narrative</span></td><td><span class="i-ar">سرد الحوسبة بالمدار: مراكز بيانات بالفضاء غير مثبتة تقنيًا</span><span class="i-en">"Compute-in-orbit": technically unproven space data centers</span></td></tr>
 </table>
-<h5><span class="i-ar">🧩 المكونات</span><span class="i-en">🧩 The Pieces</span></h5>
+<h5><span class="i-ar">المكونات</span><span class="i-en">The Pieces</span></h5>
 <table>
 <tr><td>Grok</td><td><span class="i-ar">نموذج الذكاء الاصطناعي — بعيد عن التربّح</span><span class="i-en">The AI model — nowhere near profitability</span></td></tr>
 <tr><td>X</td><td><span class="i-ar">تويتر سابقًا: إيرادات إعلانية متواضعة</span><span class="i-en">Formerly Twitter: modest ad revenue</span></td></tr>
 <tr><td>Colossus</td><td><span class="i-ar">في ممفيس: من أضخم مراكز بيانات الذكاء الاصطناعي بمئات آلاف المعالجات</span><span class="i-en">In Memphis: one of the world's largest AI data centers with hundreds of thousands of GPUs</span></td></tr>
 </table>
-<h5><span class="i-ar">🔥 أرقام الحرق</span><span class="i-en">🔥 Burn Numbers</span></h5>
+<h5><span class="i-ar">أرقام الحرق</span><span class="i-en">Burn Numbers</span></h5>
 <table>
 <tr><td>$3.2B</td><td><span class="i-ar">إجمالي إيرادات القسم</span><span class="i-en">Total division revenue</span></td></tr>
 <tr><td>−$14B</td><td><span class="i-ar">الحرق السنوي — أكثر من 4 أضعاف الإيراد</span><span class="i-en">Annual burn — more than 4× revenue</span></td></tr>
 <tr><td><span class="en">9 mo</span></td><td><span class="i-ar">حرق $9.5B بأول 9 أشهر من 2025 مقابل $210M من غروك</span><span class="i-en">$9.5B burned in 9 months vs $210M Grok revenue</span></td></tr>
 </table>
 </div>
-<div class="more"><span class="i-ar">التفاصيل الكاملة ▾</span><span class="i-en">Full details ▾</span></div>
+<div class="more"><span class="i-ar">التفاصيل الكاملة</span><span class="i-en">Full details</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
 </div>
 
 </div>
@@ -274,12 +286,12 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <section class="rv">
 <div class="eyeb"><b><span class="i-ar">الميزان</span><span class="i-en">The Balance</span></b><span>PRO VIEW</span><div class="ln"></div></div>
 <div class="sc">
-<div class="pan gl pg"><h4><span class="i-ar">✅ القوة</span><span class="i-en">✅ Strengths</span></h4><ul>
+<div class="pan gl pg"><h4><span class="i-ar">القوة</span><span class="i-en">Strengths</span></h4><ul>
 <li><span class="i-ar">احتكار شبه كامل لسوق الإطلاق</span><span class="i-en">Near-total launch market monopoly</span></li>
 <li><span class="i-ar">ستارلينك ينمو ~50% سنويًا</span><span class="i-en">Starlink growing ~50% a year</span></li>
 <li><span class="i-ar">عقود البنتاغون وناسا مضمونة</span><span class="i-en">Guaranteed Pentagon and NASA contracts</span></li>
 <li><span class="i-ar">~200 صندوق مؤشرات تشتري هيكليًا</span><span class="i-en">~200 index funds are structural buyers</span></li></ul></div>
-<div class="pan gl pb"><h4><span class="i-ar">🔴 الخطر</span><span class="i-en">🔴 Risks</span></h4><ul>
+<div class="pan gl pb"><h4><span class="i-ar">الخطر</span><span class="i-en">Risks</span></h4><ul>
 <li><span class="i-ar">تقييم متطرف مقابل الإيرادات</span><span class="i-en">Extreme valuation vs revenue</span></li>
 <li><span class="i-ar">الذكاء الاصطناعي يحرق $14B سنويًا</span><span class="i-en">AI burns $14B a year</span></li>
 <li><span class="i-ar">تقلب عنيف: بيتا 5.79</span><span class="i-en">Violent volatility: 5.79 beta</span></li>
@@ -290,11 +302,12 @@ background:linear-gradient(90deg,var(--a2),var(--a1));-webkit-background-clip:te
 <section class="rv">
 <div class="eyeb"><b><span class="i-ar">الخلاصة</span><span class="i-en">Takeaways</span></b><span>4</span><div class="ln"></div></div>
 <div class="gl pad" id="tks"></div>
-<p class="dsc"><span class="i-ar">⚠️ تحليل معلوماتي فقط وليس نصيحة استثمارية</span><span class="i-en">⚠️ Informational only, not investment advice</span></p>
+<p class="dsc"><span class="i-ar">تحليل معلوماتي فقط وليس نصيحة استثمارية</span><span class="i-en">Informational only, not investment advice</span></p>
 </section>
 
 </div>
 <script>
+function toggleVein(el){var open=el.classList.toggle("open");el.setAttribute("aria-expanded",open?"true":"false");}
 var CUR=localStorage.getItem("lang")||"ar";
 var D=null,NEWSCACHE=null;
 var L={ar:{revenue_2025:"إجمالي إيرادات 2025",starlink_revenue_2025:"إيرادات ستارلينك",subscribers:"مشترك نشط",revenue_2026_expected:"المتوقع 2026",eps:"ربحية السهم",beta:"بيتا · التقلب",etf_holders:"صندوق مؤشرات",next_earnings:"الأرباح القادمة"},
@@ -323,7 +336,7 @@ sp(window.__LASTP||D.price_fallback,!!window.__LIVE);}
 fetch("data.json?v="+Date.now()).then(function(r){return r.json()}).then(function(d){
 D=d;window.__IPO=d.ipo_price||135;
 if(CUR!=="ar")setLang(CUR);else{renderDyn();}
-document.getElementById("news").innerHTML=(CUR==="ar"?d.news:[]).map(function(n){return "<li>📌 "+n+"</li>"}).join("");
+document.getElementById("news").innerHTML=(CUR==="ar"?d.news:[]).map(function(n){return "<li>"+n+"</li>"}).join("");
 livePrice();liveNews();
 }).catch(function(){document.getElementById("px").textContent="—";livePrice();liveNews()});
 function livePrice(){
@@ -361,11 +374,11 @@ if(m<1)return "now";if(m<60)return m+"m ago";
 var h2=Math.round(m/60);if(h2<24)return h2+"h ago";
 var d2=Math.round(h2/24);return d2+"d ago";}
 function renderNews(){
-if(!NEWSCACHE){if(D&&CUR==="ar")document.getElementById("news").innerHTML=D.news.map(function(n){return "<li>📌 "+n+"</li>"}).join("");return;}
+if(!NEWSCACHE){if(D&&CUR==="ar")document.getElementById("news").innerHTML=D.news.map(function(n){return "<li>"+n+"</li>"}).join("");return;}
 document.getElementById("nsrc").textContent=(CUR==="ar"?"مترجمة · مع المصدر":"LIVE · SOURCED");
 document.getElementById("news").innerHTML=NEWSCACHE.map(function(n){
-var head=(CUR==="ar")?('<span class="arb">📌 '+n.ar+'</span><span class="osrc">'+n.en+'</span>')
-:('<span class="arb" style="direction:ltr;display:block;text-align:left">📌 '+n.en+'</span>');
+var head=(CUR==="ar")?('<span class="arb">'+n.ar+'</span><span class="osrc">'+n.en+'</span>')
+:('<span class="arb" style="direction:ltr;display:block;text-align:left">'+n.en+'</span>');
 return '<li><a href="'+n.link+'" target="_blank">'+head+'<div class="nmeta"><span class="src">'+n.src+'</span><span class="ndate">'+agoTxt(n.t)+'</span></div></a></li>'}).join("")}
 function liveNews(){
 fetch(pxu("https://feeds.finance.yahoo.com/rss/2.0/headline?s=SPCX&region=US&lang=en-US")).then(function(r){return r.text()}).then(function(t){
